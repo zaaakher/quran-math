@@ -2,7 +2,6 @@
 
 import React from "react";
 import { IntlProvider } from "next-intl";
-import { DirectionProvider } from "@/components/ui/direction";
 import { Locale, localeDirections } from "@/i18n/config";
 
 interface ProvidersProps {
@@ -16,9 +15,7 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
 
   return (
     <IntlProvider locale={locale} messages={messages} timeZone="UTC">
-      <DirectionProvider dir={direction} direction={direction}>
-        {children}
-      </DirectionProvider>
+      {children}
     </IntlProvider>
   );
 }

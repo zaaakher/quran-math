@@ -26,7 +26,7 @@ export default function RootLayout({
   const t = useTranslations("layout");
   
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" dir="rtl" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

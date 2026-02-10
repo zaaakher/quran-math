@@ -3,8 +3,9 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { Providers } from "@/components/providers";
 import { getMessages } from "next-intl/server";
-import { Locale, locales } from "@/i18n/config";
+import { Locale, localeDirections } from "@/i18n/config";
 import { Geist, Geist_Mono } from "next/font/google";
+import { DirectionProvider } from "@/components/ui/direction";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -34,6 +35,7 @@ export default async function LocaleLayout({
   const { locale: rawLocale } = await params;
   const locale = rawLocale as Locale;
   const messages = await getMessages({ locale });
+  const direction = localeDirections[locale];
 
   return (
     <Providers locale={locale} messages={messages}>
