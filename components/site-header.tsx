@@ -29,17 +29,10 @@ export function SiteHeader() {
                     <SidebarIcon />
                 </Button>
                 <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb className="hidden sm:block">
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="#">Build Your Application</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+                <div className="flex flex-col">
+                    <h1 className="font-semibold">Quran Analysis Dashboard</h1>
+                    <p className="text-xs text-muted-foreground">Date from https://api.alquran.cloud/v1</p>
+                </div>
             </div>
         </header>
     )

@@ -92,124 +92,124 @@ export default async function DashboardPage() {
   return (
     <div className="container py-8 space-y-8 px-4">
       <section id="overview">
-          <h2 className="text-xl font-semibold mb-4">Overview</h2>
-          <OverviewCards
-            totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
-            totalSurahs={surahs.length}
-            totalPages={604}
-            totalRukus={meta?.rukus?.count ?? 556}
-            totalSajdas={meta?.sajdas?.count ?? sajdas.length}
-            meccanAyahs={revelationStats.meccanAyahs}
-            medinanAyahs={revelationStats.medinanAyahs}
-            meccanSurahs={revelationStats.meccanSurahs}
-            medinanSurahs={revelationStats.medinanSurahs}
-          />
-        </section>
+        <h2 className="text-xl font-semibold mb-4">Overview</h2>
+        <OverviewCards
+          totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
+          totalSurahs={surahs.length}
+          totalPages={604}
+          totalRukus={meta?.rukus?.count ?? 556}
+          totalSajdas={meta?.sajdas?.count ?? sajdas.length}
+          meccanAyahs={revelationStats.meccanAyahs}
+          medinanAyahs={revelationStats.medinanAyahs}
+          meccanSurahs={revelationStats.meccanSurahs}
+          medinanSurahs={revelationStats.medinanSurahs}
+        />
+      </section>
 
-        <Separator />
+      <Separator />
 
-        <section id="revelation">
-          <h2 className="text-xl font-semibold mb-4">Revelation & Structure Analysis</h2>
+      <section id="revelation">
+        <h2 className="text-xl font-semibold mb-4">Revelation & Structure Analysis</h2>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {/* <RevelationChart data={revelationChartData} /> */}
+          <div className="space-y-4">
+            <StatsCards
+              ayahStats={ayahStats}
+              sajdaTotal={sajdaStats.total}
+              sajdaObligatory={sajdaStats.obligatory}
+              sajdaRecommended={sajdaStats.recommended}
+            />
+            <Suspense fallback={<Skeleton className="h-[140px] w-full rounded-lg" />}>
+              <WordStats />
+            </Suspense>
+          </div>
+        </div>
+      </section>
+
+      <section id="revelation-order">
+        <RevelationOrder data={revelationOrder} />
+      </section>
+
+      <Separator />
+
+      <section id="surahs">
+        <h2 className="text-xl font-semibold mb-4">Surah Analysis</h2>
+        <div className="grid gap-4">
+          <SurahCharacteristics data={surahCharacteristics} />
+          <LongestShortest longest={longest} shortest={shortest} />
+        </div>
+      </section>
+
+      <section id="verses">
+        <h2 className="text-xl font-semibold mb-4">Verse (Ayah) Analysis</h2>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <AyahStats stats={ayahLengthStats} />
+          <TopSurahsByWords data={topSurahsByWords} />
+        </div>
+      </section>
+
+      <Separator />
+
+      <section id="word-analysis">
+        <h2 className="text-xl font-semibold mb-4">Linguistic Analysis</h2>
+        <div className="grid gap-4 space-y-4">
+          <LinguisticStats stats={linguisticStats} />
           <div className="grid gap-4 lg:grid-cols-2">
-            {/* <RevelationChart data={revelationChartData} /> */}
-            <div className="space-y-4">
-              <StatsCards
-                ayahStats={ayahStats}
-                sajdaTotal={sajdaStats.total}
-                sajdaObligatory={sajdaStats.obligatory}
-                sajdaRecommended={sajdaStats.recommended}
-              />
-              <Suspense fallback={<Skeleton className="h-[140px] w-full rounded-lg" />}>
-                <WordStats />
-              </Suspense>
+            {/* <LetterFrequency data={letterFreq} /> */}
+            {/* <WordLengthDistribution data={wordLengthDist} /> */}
+          </div>
+        </div>
+      </section>
+
+      <Separator />
+
+      <section id="numeric">
+        <h2 className="text-xl font-semibold mb-4">Numeric Patterns & Advanced Analytics</h2>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <NumericPatterns patterns={numericPatterns} />
+          <div className="space-y-4">
+            <div className="border rounded-lg p-4 bg-card">
+              <p className="text-sm text-muted-foreground">Average Verses Per Page</p>
+              <p className="text-3xl font-bold mt-2">{avgVersesPerPage}</p>
+            </div>
+            <div className="border rounded-lg p-4 bg-card">
+              <p className="text-sm text-muted-foreground">Unique Sanskrit Words</p>
+              <p className="text-3xl font-bold mt-2">{linguisticStats.uniqueWords.toLocaleString()}</p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="revelation-order">
-          <RevelationOrder data={revelationOrder} />
-        </section>
+      <section id="juz">
+        {/* <JuzChart data={juzData} /> */}
+      </section>
 
-        <Separator />
+      <section id="ruku">
+        {/* <RukuAnalysis data={rukuDist} /> */}
+      </section>
 
-        <section id="surahs">
-          <h2 className="text-xl font-semibold mb-4">Surah Analysis</h2>
-          <div className="grid gap-4 lg:grid-cols-2">
-            <SurahCharacteristics data={surahCharacteristics} />
-            <LongestShortest longest={longest} shortest={shortest} />
-          </div>
-        </section>
+      <section id="pages">
+        {/* <PageDistribution data={pageDist} /> */}
+      </section>
 
-        <section id="verses">
-          <h2 className="text-xl font-semibold mb-4">Verse (Ayah) Analysis</h2>
-          <div className="grid gap-4 lg:grid-cols-2">
-            <AyahStats stats={ayahLengthStats} />
-            <TopSurahsByWords data={topSurahsByWords} />
-          </div>
-        </section>
+      <section id="verses-per-surah">
+        {/* <VersesPerSurahChart data={versesPerSurahData} /> */}
+      </section>
 
-        <Separator />
-
-        <section id="word-analysis">
-          <h2 className="text-xl font-semibold mb-4">Linguistic Analysis</h2>
-          <div className="grid gap-4 space-y-4">
-            <LinguisticStats stats={linguisticStats} />
-            <div className="grid gap-4 lg:grid-cols-2">
-              {/* <LetterFrequency data={letterFreq} /> */}
-              {/* <WordLengthDistribution data={wordLengthDist} /> */}
-            </div>
-          </div>
-        </section>
-
-        <Separator />
-
-        <section id="numeric">
-          <h2 className="text-xl font-semibold mb-4">Numeric Patterns & Advanced Analytics</h2>
-          <div className="grid gap-4 lg:grid-cols-2">
-            <NumericPatterns patterns={numericPatterns} />
-            <div className="space-y-4">
-              <div className="border rounded-lg p-4 bg-card">
-                <p className="text-sm text-muted-foreground">Average Verses Per Page</p>
-                <p className="text-3xl font-bold mt-2">{avgVersesPerPage}</p>
-              </div>
-              <div className="border rounded-lg p-4 bg-card">
-                <p className="text-sm text-muted-foreground">Unique Sanskrit Words</p>
-                <p className="text-3xl font-bold mt-2">{linguisticStats.uniqueWords.toLocaleString()}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="juz">
-          {/* <JuzChart data={juzData} /> */}
-        </section>
-
-        <section id="ruku">
-          {/* <RukuAnalysis data={rukuDist} /> */}
-        </section>
-
-        <section id="pages">
-          {/* <PageDistribution data={pageDist} /> */}
-        </section>
-
-        <section id="verses-per-surah">
-          {/* <VersesPerSurahChart data={versesPerSurahData} /> */}
-        </section>
-
-        <section id="sajda">
-          <Tabs defaultValue="surahs">
-            <TabsList className="grid w-full max-w-md grid-cols-2">
-              <TabsTrigger value="surahs">All Surahs</TabsTrigger>
-              <TabsTrigger value="sajda">Sajda Verses</TabsTrigger>
-            </TabsList>
-            <TabsContent value="surahs" className="mt-4">
-              <SurahsTable surahs={surahs} />
-            </TabsContent>
-            <TabsContent value="sajda" className="mt-4">
-              <SajdaTable sajdas={sajdas} surahNames={surahNames} />
-            </TabsContent>
-          </Tabs>
-        </section>
+      <section id="sajda">
+        <Tabs defaultValue="surahs">
+          <TabsList className="grid w-full max-w-md grid-cols-2">
+            <TabsTrigger value="surahs">All Surahs</TabsTrigger>
+            <TabsTrigger value="sajda">Sajda Verses</TabsTrigger>
+          </TabsList>
+          <TabsContent value="surahs" className="mt-4">
+            <SurahsTable surahs={surahs} />
+          </TabsContent>
+          <TabsContent value="sajda" className="mt-4">
+            <SajdaTable sajdas={sajdas} surahNames={surahNames} />
+          </TabsContent>
+        </Tabs>
+      </section>
     </div>
   );
 }
