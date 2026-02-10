@@ -217,7 +217,7 @@ export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15) {
       }, 0);
       return {
         surahNumber: surah.number,
-        surahName: surah.englishName,
+        surahName: surah.name,
         words: wordCount,
         ayahs: surah.numberOfAyahs
       };
@@ -376,9 +376,9 @@ export function getSurahCharacteristics(surahs: Surah[]) {
     total: surahs.length,
     makkahSurahs: makkah.length,
     madinahSurahs: madinah.length,
-    longestSurahName: longestSurah.englishName,
+    longestSurahName: longestSurah.name,
     longestSurahVerses: longestSurah.numberOfAyahs,
-    shortestSurahName: shortestSurah.englishName,
+    shortestSurahName: shortestSurah.name,
     shortestSurahVerses: shortestSurah.numberOfAyahs,
   };
 }

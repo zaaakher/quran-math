@@ -15,9 +15,7 @@ export function DashboardSection({
   children,
   showSeparator = true
 }: DashboardSectionProps) {
-  // For server components, we'll use the key directly as a fallback
-  // The actual translation will be handled by the parent component
-  const t = useTranslations("dashboard"); // Ensure translations are loaded
+  const t = useTranslations("dashboard");
   const title = titleKey;
 
   return (

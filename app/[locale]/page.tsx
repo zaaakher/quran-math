@@ -40,14 +40,11 @@ import { RukuAnalysis } from "@/components/dashboard/ruku-analysis";
 import { SurahCharacteristics } from "@/components/dashboard/surah-characteristics";
 import { PageDistribution } from "@/components/dashboard/page-distribution";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import { DashboardSection } from "@/components/dashboard-section";
 import { ErrorDisplay } from "@/components/error-display";
-import { getTranslations } from "next-intl/server";
 
 export default async function DashboardPage() {
-  const t = await getTranslations("dashboard");
 
   const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
     fetchSurahList(),
@@ -107,7 +104,7 @@ export default async function DashboardPage() {
         </DashboardSection>
       </section>
 
-      <DashboardSection titleKey={t("revelation")}>
+      <DashboardSection titleKey="revelation">
         <div className="grid gap-4 lg:grid-cols-2">
           <RevelationChart data={revelationChartData} />
           <div className="space-y-4">
@@ -117,30 +114,30 @@ export default async function DashboardPage() {
               sajdaObligatory={sajdaStats.obligatory}
               sajdaRecommended={sajdaStats.recommended}
             />
-            <WordStats />
+            <WordStats   />
           </div>
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey={t("revelation_order")}>
+      <DashboardSection titleKey="revelation_order">
         <RevelationOrder data={revelationOrder} />
       </DashboardSection>
 
-      <DashboardSection titleKey={t("surahs")}>
+      <DashboardSection titleKey="surahs">
         <div className="grid gap-4">
           <SurahCharacteristics data={surahCharacteristics} />
           <LongestShortest longest={longest} shortest={shortest} />
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey={t("verses")}>
+      <DashboardSection titleKey="verses">
         <div className="grid gap-4 lg:grid-cols-2">
           <AyahStats stats={ayahLengthStats} />
           <TopSurahsByWords data={topSurahsByWords} />
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey={t("word_analysis")}>
+      <DashboardSection titleKey="word_analysis">
         <div className="grid gap-4 space-y-4">
           <LinguisticStats stats={linguisticStats} />
           <div className="grid gap-4 lg:grid-cols-2">
@@ -150,43 +147,43 @@ export default async function DashboardPage() {
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey={t("numeric")}>
+      <DashboardSection titleKey="numeric">
         <div className="grid gap-4 lg:grid-cols-2">
           <NumericPatterns patterns={numericPatterns} />
           <div className="space-y-4">
             <div className="border rounded-lg p-4 bg-card">
-              <p className="text-sm text-muted-foreground">{t("average_verses_per_page")}</p>
+              <p className="text-sm text-muted-foreground">average_verses_per_page</p>
               <p className="text-3xl font-bold mt-2">{avgVersesPerPage}</p>
             </div>
             <div className="border rounded-lg p-4 bg-card">
-              <p className="text-sm text-muted-foreground">{t("unique_sanskrit_words")}</p>
+              <p className="text-sm text-muted-foreground">unique_sanskrit_words</p>
               <p className="text-3xl font-bold mt-2">{linguisticStats.uniqueWords.toLocaleString()}</p>
             </div>
           </div>
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey={t("juz")}>
+      <DashboardSection titleKey="juz">
         <JuzChart data={juzData} />
       </DashboardSection>
 
-      <DashboardSection titleKey={t("ruku")}>
+      <DashboardSection titleKey="ruku">
         <RukuAnalysis data={rukuDist} />
       </DashboardSection>
 
-      <DashboardSection titleKey={t("pages")}>
+      <DashboardSection titleKey="pages">
         <PageDistribution data={pageDist} />
       </DashboardSection>
 
-      <DashboardSection titleKey={t("verses_per_surah")}>
+      <DashboardSection titleKey="verses_per_surah">
         <VersesPerSurahChart data={versesPerSurahData} />
       </DashboardSection>
 
-      <DashboardSection titleKey={t("sajda")}>
+      <DashboardSection titleKey="sajda">
         <Tabs defaultValue="surahs">
           <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="surahs">{t("all_surahs")}</TabsTrigger>
-            <TabsTrigger value="sajda">{t("sajda_verses")}</TabsTrigger>
+            <TabsTrigger value="surahs">all_surahs</TabsTrigger>
+            <TabsTrigger value="sajda">sajda_verses</TabsTrigger>
           </TabsList>
           <TabsContent value="surahs" className="mt-4">
             <SurahsTable surahs={surahs} />
