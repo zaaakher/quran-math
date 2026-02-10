@@ -140,6 +140,10 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
   }, [surahs, ayahs, juzs, locale]);
 
 
+  // If no data is available yet, don't render anything (should be handled by wrapper)
+  if (!data) {
+    return null;
+  }
 
   const {
     meta,

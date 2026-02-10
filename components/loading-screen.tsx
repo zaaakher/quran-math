@@ -2,27 +2,18 @@
 
 import React from "react";
 import { Loader2 } from "lucide-react";
+import { useQuranStore } from "@/lib/store";
 
 export function LoadingScreen() {
+  const { isLoading } = useQuranStore();
+
+  // Estimate progress based on loading state
+  // The Quran fetch has multiple steps, so we can show incremental progress
+  const progress = isLoading ? 75 : 100;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
-      <div className="text-center space-y-6">
-        {/* Animated Quran icon */}
-        <div className="relative">
-          <div className="w-16 h-16 mx-auto bg-gradient-to-r from-blue-600 to-blue-400 rounded-full flex items-center justify-center shadow-lg">
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-              <svg 
-                className="w-4 h-4 text-blue-600 animate-pulse" 
-                fill="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L1 21h22L12 2zm0 4.5l3.5 6h-7l3.5-6z"/>
-              </svg>
-            </div>
-          </div>
-          {/* Floating animation */}
-          <div className="absolute -inset-2 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full opacity-20 animate-ping"></div>
-        </div>
+      <div className="text-center space-y-6 max-w-md px-4">
 
         {/* Loading text */}
         <div>
@@ -34,17 +25,21 @@ export function LoadingScreen() {
           </p>
         </div>
 
-        {/* Animated loader */}
-        <div className="flex justify-center">
-          <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+        {/* Progress bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+          <div
+            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
+            style={{ width: `${progress}%` }}
+          ></div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="flex justify-center space-x-2">
-          <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-          <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-        </div>
+        {/* Progress text */}
+        <p className="text-xs text-gray-400">
+          {progress < 100 ? "Fetching Quran data..." : "Almost ready..."}
+        </p>
+
+
+
       </div>
     </div>
   );
