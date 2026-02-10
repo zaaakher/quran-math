@@ -11,8 +11,8 @@ import { Pie, PieChart } from "recharts";
 import { ChartWrapper } from "./chart-wrapper";
 
 const chartConfig = {
-  meccan: { label: "meccan", color: "var(--chart-1)" },
-  medinan: { label: "medinan", color: "var(--chart-2)" },
+  meccan: { label: "Meccan", color: "var(--chart-1)" },
+  medinan: { label: "Medinan", color: "var(--chart-2)" },
 } satisfies ChartConfig;
 
 interface RevelationChartProps {
