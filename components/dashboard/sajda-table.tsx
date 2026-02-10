@@ -42,7 +42,7 @@ export function SajdaTable({ sajdas, surahNames }: SajdaTableProps) {
             {sajdas.map((s, i) => (
               <TableRow key={`${s.surah}-${s.ayah}`}>
                 <TableCell className="font-medium">{i + 1}</TableCell>
-                <TableCell>{surahNames.get(s.surah) ?? `Surah ${s.surah}`}</TableCell>
+                <TableCell>{surahNames.get(s.surah) ?? `${s.surah}`}</TableCell>
                 <TableCell>{s.ayah}</TableCell>
                 <TableCell className="font-mono">
                   {s.surah}:{s.ayah}

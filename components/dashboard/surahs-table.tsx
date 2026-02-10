@@ -45,7 +45,7 @@ export function SurahsTable({ surahs }: SurahsTableProps) {
                 return (
                   <TableRow key={s.number}>
                     <TableCell className="font-medium">{s.number}</TableCell>
-                    <TableCell>{s.englishName}</TableCell>
+                    <TableCell>{s.name}</TableCell>
                     <TableCell className="text-muted-foreground">
                       {s.englishNameTranslation}
                     </TableCell>

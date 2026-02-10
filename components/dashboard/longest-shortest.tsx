@@ -40,7 +40,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
               {longest.map((s) => (
                 <TableRow key={s.number}>
                   <TableCell className="font-medium">{s.number}</TableCell>
-                  <TableCell>{s.englishName}</TableCell>
+                  <TableCell>{s.name}</TableCell>
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
                     <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
@@ -72,7 +72,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
               {shortest.map((s) => (
                 <TableRow key={s.number}>
                   <TableCell className="font-medium">{s.number}</TableCell>
-                  <TableCell>{s.englishName}</TableCell>
+                  <TableCell>{s.name}</TableCell>
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
                     <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
