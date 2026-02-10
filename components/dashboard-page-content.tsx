@@ -128,121 +128,15 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
     }
   }, [surahs, ayahs, juzs, locale]);
 
+
+
   if (error) {
     return <ErrorDisplay messageKey="failed_load" namespace="common" />;
   }
 
-  if (isLoading || !data) {
-    return (
-      <div className="py-8 space-y-8 px-4">
-        <section id="overview" className="pt-0">
-          <DashboardSection titleKey={"overview"} showSeparator={false}>
-            <OverviewCards
-              totalAyahs={0}
-              totalSurahs={0}
-              totalPages={604}
-              totalRukus={0}
-              totalSajdas={0}
-              meccanAyahs={0}
-              medinanAyahs={0}
-              meccanSurahs={0}
-              medinanSurahs={0}
-            />
-          </DashboardSection>
-        </section>
-
-        <DashboardSection titleKey="revelation">
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            <div className="space-y-4">
-              <div className="border rounded-lg p-4 bg-card animate-pulse">
-                <div className="h-4 bg-muted rounded w-1/2 mb-2" />
-                <div className="h-8 bg-muted rounded w-16" />
-              </div>
-              <div className="border rounded-lg p-4 bg-card animate-pulse">
-                <div className="h-4 bg-muted rounded w-1/2 mb-2" />
-                <div className="h-8 bg-muted rounded w-16" />
-              </div>
-            </div>
-          </div>
-        </DashboardSection>
-
-        <DashboardSection titleKey="revelation_order">
-          <div className="h-64 bg-muted rounded-lg animate-pulse" />
-        </DashboardSection>
-
-        <DashboardSection titleKey="surahs">
-          <div className="grid gap-4">
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-          </div>
-        </DashboardSection>
-
-        <DashboardSection titleKey="verses">
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-          </div>
-        </DashboardSection>
-
-        <DashboardSection titleKey="word_analysis">
-          <div className="grid gap-4 space-y-4">
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            <div className="grid gap-4 lg:grid-cols-2">
-              <div className="h-64 bg-muted rounded-lg animate-pulse" />
-              <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            </div>
-          </div>
-        </DashboardSection>
-
-        <DashboardSection titleKey="numeric">
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            <div className="space-y-4">
-              <div className="border rounded-lg p-4 bg-card animate-pulse">
-                <div className="h-4 bg-muted rounded w-1/2 mb-2" />
-                <div className="h-8 bg-muted rounded w-16" />
-              </div>
-              <div className="border rounded-lg p-4 bg-card animate-pulse">
-                <div className="h-4 bg-muted rounded w-1/2 mb-2" />
-                <div className="h-8 bg-muted rounded w-16" />
-              </div>
-            </div>
-          </div>
-        </DashboardSection>
-
-        <DashboardSection titleKey="juz">
-          <div className="h-64 bg-muted rounded-lg animate-pulse" />
-        </DashboardSection>
-
-        <DashboardSection titleKey="ruku">
-          <div className="h-64 bg-muted rounded-lg animate-pulse" />
-        </DashboardSection>
-
-        <DashboardSection titleKey="pages">
-          <div className="h-64 bg-muted rounded-lg animate-pulse" />
-        </DashboardSection>
-
-        <DashboardSection titleKey="verses_per_surah">
-          <div className="h-64 bg-muted rounded-lg animate-pulse" />
-        </DashboardSection>
-
-        <DashboardSection titleKey="sajda">
-          <Tabs defaultValue="surahs">
-            <TabsList className="grid w-full max-w-md grid-cols-2">
-              <TabsTrigger value="surahs">all_surahs</TabsTrigger>
-              <TabsTrigger value="sajda">sajda_verses</TabsTrigger>
-            </TabsList>
-            <TabsContent value="surahs" className="mt-4">
-              <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            </TabsContent>
-            <TabsContent value="sajda" className="mt-4">
-              <div className="h-64 bg-muted rounded-lg animate-pulse" />
-            </TabsContent>
-          </Tabs>
-        </DashboardSection>
-      </div>
-    );
+  // If no data is available yet, don't render anything (should be handled by wrapper)
+  if (!data) {
+    return null;
   }
 
   const {

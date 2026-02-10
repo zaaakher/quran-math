@@ -106,6 +106,8 @@ export function getLetterFrequency(surahs: Surah[], surahsWithAyahs?: any[]) {
   if (!surahsWithAyahs) return Array.from(letterMap.entries()).map(([letter, count]) => ({ letter, count }));
 
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       const text = ayah.text.replace(/[\s\n]/g, "");
       for (const letter of text) {
@@ -126,6 +128,8 @@ export function getWordLengthDistribution(surahsWithAyahs?: any[]) {
   if (!surahsWithAyahs) return [];
 
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       const words = ayah.text.split(/\s+/).filter((w: string) => w.length > 0);
       for (const word of words) {
@@ -146,6 +150,8 @@ export function getRukuDistribution(surahsWithAyahs?: any[]) {
   if (!surahsWithAyahs) return [];
 
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     const rukuSet = new Set<number>();
     for (const ayah of surah.ayahs) {
       if (ayah.ruku) {
@@ -170,6 +176,8 @@ export function getPageDistribution(surahsWithAyahs?: any[]) {
   if (!surahsWithAyahs) return [];
 
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       if (ayah.page) {
         pageMap.set(ayah.page, (pageMap.get(ayah.page) ?? 0) + 1);
@@ -188,6 +196,8 @@ export function getAyahLengthStats(surahsWithAyahs?: any[]) {
 
   const lengths: number[] = [];
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       lengths.push(ayah.text.length);
     }
@@ -273,6 +283,8 @@ export function getAverageVersesPerPage(surahsWithAyahs?: any[]) {
 
   const pageMap = new Map<number, number>();
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       if (ayah.page) {
         pageMap.set(ayah.page, (pageMap.get(ayah.page) ?? 0) + 1);
@@ -301,6 +313,8 @@ export function getLinguisticStats(surahsWithAyahs?: any[]) {
   let totalWordLength = 0;
 
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       const words = ayah.text.split(/\s+/).filter((w: string) => w.length > 0);
       totalWords += words.length;
@@ -338,6 +352,8 @@ export function getNumericPatterns(surahsWithAyahs?: any[]) {
 
   const ayahNumbers = new Set<number>();
   for (const surah of surahsWithAyahs) {
+    if (!surah.ayahs || !Array.isArray(surah.ayahs)) continue;
+    
     for (const ayah of surah.ayahs) {
       ayahNumbers.add(ayah.number);
     }

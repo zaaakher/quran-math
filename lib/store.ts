@@ -6,12 +6,13 @@ interface QuranStore {
   surahs: Surah[]
   ayahs: Ayah[]
   juzs: JuzData[]
-  
+
   // Loading state
   isLoading: boolean
   error: string | null
-  
+
   // Actions
+  setIsLoading: (loading: boolean) => void
   setData: (surahs: Surah[], ayahs: Ayah[], juzs: JuzData[]) => void
   setLoading: (loading: boolean) => void
   setError: (error: string | null) => void
@@ -25,8 +26,12 @@ export const useQuranStore = create<QuranStore>((set) => ({
   juzs: [],
   isLoading: false,
   error: null,
-  
+
   // Actions
+  setIsLoading: (loading: boolean) => set((state) => ({
+    ...state,
+    isLoading: loading
+  })),
   setData: (surahs: Surah[], ayahs: Ayah[], juzs: JuzData[]) => set((state) => ({
     ...state,
     surahs,
@@ -35,18 +40,18 @@ export const useQuranStore = create<QuranStore>((set) => ({
     isLoading: false,
     error: null
   })),
-  
+
   setLoading: (loading: boolean) => set((state) => ({
     ...state,
     isLoading: loading
   })),
-  
+
   setError: (error: string | null) => set((state) => ({
     ...state,
     error,
     isLoading: false
   })),
-  
+
   clearData: () => set((state) => ({
     ...state,
     surahs: [],
