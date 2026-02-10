@@ -30,7 +30,7 @@ async function loadLocaleMessages(locale: Locale): Promise<Record<string, any>> 
 function LocaleWrapper({ children }: { children: React.ReactNode }) {
   const { locale, direction } = useLocaleContext();
   const [messages, setMessages] = useState<Record<string, any>>({});
-  const { surahs, setIsLoading } = useQuranStore();
+  const { surahs, progress, setIsLoading } = useQuranStore();
 
   useEffect(() => {
     loadLocaleMessages(locale).then(setMessages);
@@ -49,8 +49,8 @@ function LocaleWrapper({ children }: { children: React.ReactNode }) {
     }
   }, [surahs.length, setIsLoading]);
 
-  // Only render when we have messages AND Quran data loaded
-  if (!messages || Object.keys(messages).length === 0 || surahs.length === 0) {
+  // Only render when we have messages, Quran data loaded, AND loading is complete
+  if (!messages || Object.keys(messages).length === 0 || surahs.length === 0 || progress < 100) {
     return <LoadingScreen />;
   }
 

@@ -7,6 +7,18 @@ import { useQuranStore } from "@/lib/store";
 export function LoadingScreen() {
   const { isLoading, progress } = useQuranStore();
 
+  // Get appropriate loading message based on progress
+  const getLoadingMessage = () => {
+    if (progress < 25) return "Initializing...";
+    if (progress < 60) return "Fetching juz data...";
+    if (progress < 90) return "Processing Quran content...";
+    if (progress < 100) return "Almost ready...";
+    return "Processing dashboard data...";
+  };
+
+  // Use animation to show indeterminate progress when > 95 but not at 100
+  const displayProgress = progress >= 95 ? 95 : progress;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
       <div className="text-center space-y-6 max-w-md px-4">
@@ -25,13 +37,13 @@ export function LoadingScreen() {
         <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
           <div
             className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-            style={{ width: `${progress}%` }}
+            style={{ width: `${displayProgress}%` }}
           ></div>
         </div>
 
         {/* Progress text */}
         <p className="text-xs text-gray-400">
-          {progress < 100 ? "Fetching Quran data..." : "Almost ready..."}
+          {getLoadingMessage()}
         </p>
 
 

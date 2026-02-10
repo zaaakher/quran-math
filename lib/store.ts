@@ -44,7 +44,6 @@ export const useQuranStore = create<QuranStore>((set) => ({
     surahs,
     ayahs,
     juzs,
-    isLoading: false,
     progress: 100,
     error: null
   })),
@@ -57,7 +56,8 @@ export const useQuranStore = create<QuranStore>((set) => ({
   setError: (error: string | null) => set((state) => ({
     ...state,
     error,
-    isLoading: false
+    isLoading: false,
+    progress: 0
   })),
 
   clearData: () => set((state) => ({
@@ -66,6 +66,7 @@ export const useQuranStore = create<QuranStore>((set) => ({
     ayahs: [],
     juzs: [],
     isLoading: false,
+    progress: 0,
     error: null
   }))
 }))

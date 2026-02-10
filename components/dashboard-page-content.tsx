@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useQuranStore } from "@/lib/store";
+import { LoadingScreen } from "@/components/loading-screen";
 import { fetchSurahList, fetchMeta, fetchAllJuz, fetchFullQuran } from "@/lib/quran-api";
 import {
   getRevelationStats,
@@ -142,9 +143,9 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
   }, [surahs, ayahs, juzs, locale]);
 
 
-  // If no data is available yet, don't render anything (should be handled by wrapper)
+  // If no data is available yet, show loading screen
   if (!data) {
-    return null;
+    return <LoadingScreen />;
   }
 
   const {
