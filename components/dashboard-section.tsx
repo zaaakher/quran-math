@@ -8,12 +8,14 @@ interface DashboardSectionProps {
   titleKey: string;
   children: ReactNode;
   showSeparator?: boolean;
+  id?: string;
 }
 
 export function DashboardSection({
   titleKey,
   children,
-  showSeparator = true
+  showSeparator = true,
+  id
 }: DashboardSectionProps) {
   const t = useTranslations("dashboard");
   const title = titleKey;
@@ -21,7 +23,7 @@ export function DashboardSection({
   return (
     <>
       {showSeparator && <Separator />}
-      <section>
+      <section id={id}>
         <h2 className="text-xl font-semibold mb-4">{t(title)}</h2>
         {children}
       </section>

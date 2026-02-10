@@ -203,7 +203,7 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey="revelation_order">
+      <DashboardSection titleKey="revelation_order" id="revelation-order">
         <RevelationOrder data={revelationOrder} />
       </DashboardSection>
 
@@ -221,7 +221,7 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey="word_analysis">
+      <DashboardSection titleKey="word_analysis" id="word-analysis">
         <div className="grid gap-4 space-y-4">
           <LinguisticStats stats={linguisticStats} />
           <div className="grid gap-4 lg:grid-cols-2">
@@ -259,7 +259,7 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         <PageDistribution data={pageDist} />
       </DashboardSection>
 
-      <DashboardSection titleKey="verses_per_surah">
+      <DashboardSection titleKey="verses_per_surah" id="verses-per-surah">
         <VersesPerSurahChart data={versesPerSurahData} />
       </DashboardSection>
 
