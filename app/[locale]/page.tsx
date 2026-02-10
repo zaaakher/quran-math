@@ -85,6 +85,10 @@ export default async function DashboardPage() {
   const linguisticStats = getLinguisticStats(surahsWithAyahs);
   const numericPatterns = getNumericPatterns(surahsWithAyahs);
   const surahCharacteristics = getSurahCharacteristics(surahs);
+  const wordStats = {
+    totalWords: linguisticStats.totalWords,
+    totalLetters: linguisticStats.totalLetters
+  };
 
   return (
     <div className="py-8 space-y-8 px-4">
@@ -114,7 +118,7 @@ export default async function DashboardPage() {
               sajdaObligatory={sajdaStats.obligatory}
               sajdaRecommended={sajdaStats.recommended}
             />
-            <WordStats   />
+            <WordStats totalWords={wordStats.totalWords} totalLetters={wordStats.totalLetters} />
           </div>
         </div>
       </DashboardSection>

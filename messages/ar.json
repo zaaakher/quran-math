@@ -135,7 +135,9 @@
     "meccan": "مكي",
     "meccan_desc": "نزل في مكة",
     "medinan": "مديني",
-    "medinan_desc": "نزل في المدينة"
+    "medinan_desc": "نزل في المدينة",
+    "no_of_surahs": "السور",
+    "no_of_ayahs": "الآيات"
   },
   "charts": {
     "meccan": "مكي",

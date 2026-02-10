@@ -62,13 +62,13 @@ export function OverviewCards({
     },
     {
       title: t("meccan"),
-      value: `${meccanSurahs} surahs · ${meccanAyahs.toLocaleString()} ayahs`,
+      value: `${meccanSurahs} ${t("no_of_surahs")} · ${meccanAyahs.toLocaleString()} ${t("no_of_ayahs")}`,
       desc: t("meccan_desc"),
       icon: Sun,
     },
     {
       title: t("medinan"),
-      value: `${medinanSurahs} surahs · ${medinanAyahs.toLocaleString()} ayahs`,
+      value: `${medinanSurahs} ${t("no_of_surahs")} · ${medinanAyahs.toLocaleString()} ${t("no_of_ayahs")}`,
       desc: t("medinan_desc"),
       icon: Moon,
     },

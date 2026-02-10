@@ -1,16 +1,15 @@
 'use client'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { fetchFullQuran } from "@/lib/quran-api";
-import { getLinguisticStats } from "@/lib/analysis";
 import { useTranslations } from "next-intl";
 
-export function WordStats() {
-  const t = useTranslations("dashboard");
+interface WordStatsProps {
+  totalWords: number;
+  totalLetters: number;
+}
 
-  // Note: This component now needs to be updated to fetch data client-side
-  // For now, we'll keep the structure but remove server-side logic
-  // The actual data fetching should be moved to a parent component or use SWR
+export function WordStats({ totalWords, totalLetters }: WordStatsProps) {
+  const t = useTranslations("dashboard");
 
   return (
     <Card>
@@ -22,11 +21,11 @@ export function WordStats() {
         <div className="grid gap-4">
           <div className="border rounded-lg p-4 bg-card">
             <p className="text-sm text-muted-foreground">{t("total_words")}</p>
-            <p className="text-3xl font-bold mt-2">Loading...</p>
+            <p className="text-3xl font-bold mt-2">{totalWords.toLocaleString()}</p>
           </div>
           <div className="border rounded-lg p-4 bg-card">
             <p className="text-sm text-muted-foreground">{t("total_letters")}</p>
-            <p className="text-3xl font-bold mt-2">Loading...</p>
+            <p className="text-3xl font-bold mt-2">{totalLetters.toLocaleString()}</p>
           </div>
         </div>
       </CardContent>

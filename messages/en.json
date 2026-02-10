@@ -137,7 +137,9 @@
     "meccan": "meccan",
     "meccan_desc": "Revealed in Makkah",
     "medinan": "medinan",
-    "medinan_desc": "Revealed in Madinah"
+    "medinan_desc": "Revealed in Madinah",
+    "no_of_surahs": "surahs",
+    "no_of_ayahs": "ayahs"
   },
   "charts": {
     "meccan": "Meccan",
