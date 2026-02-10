@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { useTranslations } from "next-intl";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,6 +23,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const t = useTranslations("layout");
+  
   return (
     <html suppressHydrationWarning>
       <body

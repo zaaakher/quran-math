@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 interface TopSurahsByWordsProps {
   data: Array<{
@@ -12,20 +13,22 @@ interface TopSurahsByWordsProps {
 }
 
 export function TopSurahsByWords({ data }: TopSurahsByWordsProps) {
+  const t = useTranslations("dashboard");
+  
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Top Surahs by Word Count</CardTitle>
-        <CardDescription>Surahs with the most words in the Quran</CardDescription>
+        <CardTitle>{t("top_surahs_by_word_count")}</CardTitle>
+        <CardDescription>{t("surahs_with_most_words")}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Surah</TableHead>
-                <TableHead className="text-right">Words</TableHead>
-                <TableHead className="text-right">Verses</TableHead>
+                <TableHead>{t("surah")}</TableHead>
+                <TableHead className="text-right">{t("words")}</TableHead>
+                <TableHead className="text-right">{t("verses")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

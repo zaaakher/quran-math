@@ -1,8 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchFullQuran } from "@/lib/quran-api";
 import { countWordsAndLetters } from "@/lib/analysis";
+import { useTranslations } from "next-intl";
 
 export async function WordStats() {
+  const t = useTranslations("dashboard");
+  
   try {
     const res = await fetchFullQuran("quran-uthmani");
     if (res.code !== 200 || !res.data?.surahs) {
@@ -21,16 +24,16 @@ export async function WordStats() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Word & letter count (Uthmani)</CardTitle>
-          <CardDescription>Approximate from Arabic text</CardDescription>
+          <CardTitle>{t("word_letter_count")}</CardTitle>
+          <CardDescription>{t("approximate_from_arabic_text")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Total words</span>
+            <span className="text-muted-foreground">{t("total_words")}</span>
             <span className="font-medium">{totalWords.toLocaleString()}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Total letters</span>
+            <span className="text-muted-foreground">{t("total_letters")}</span>
             <span className="font-medium">{totalLetters.toLocaleString()}</span>
           </div>
         </CardContent>
@@ -42,14 +45,16 @@ export async function WordStats() {
 }
 
 function WordStatsFallback() {
+  const t = useTranslations("dashboard");
+  
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Word & letter count</CardTitle>
-        <CardDescription>Arabic text analysis</CardDescription>
+        <CardTitle>{t("word_letter_count")}</CardTitle>
+        <CardDescription>{t("arabic_text_analysis")}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">Loading…</p>
+        <p className="text-sm text-muted-foreground">{t("loading")}</p>
       </CardContent>
     </Card>
   );

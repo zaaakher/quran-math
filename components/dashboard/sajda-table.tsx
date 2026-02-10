@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import type { SajdaReference } from "@/types/quran";
+import { useTranslations } from "next-intl";
 
 interface SajdaTableProps {
   sajdas: SajdaReference[];
@@ -16,12 +17,14 @@ interface SajdaTableProps {
 }
 
 export function SajdaTable({ sajdas, surahNames }: SajdaTableProps) {
+  const t = useTranslations("dashboard");
+  
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sajda (Prostration) Verses</CardTitle>
+        <CardTitle>{t("sajda_prostration_verses")}</CardTitle>
         <CardDescription>
-          {sajdas.length} verses where prostration is recommended or obligatory
+          {sajdas.length} {t("verses_where_prostration")} {t("recommended_or_obligatory")}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -29,10 +32,10 @@ export function SajdaTable({ sajdas, surahNames }: SajdaTableProps) {
           <TableHeader>
             <TableRow>
               <TableHead>#</TableHead>
-              <TableHead>Surah</TableHead>
-              <TableHead>Ayah</TableHead>
-              <TableHead>Reference</TableHead>
-              <TableHead>Type</TableHead>
+              <TableHead>{t("surah")}</TableHead>
+              <TableHead>{t("ayah")}</TableHead>
+              <TableHead>{t("reference")}</TableHead>
+              <TableHead>{t("type")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -46,9 +49,9 @@ export function SajdaTable({ sajdas, surahNames }: SajdaTableProps) {
                 </TableCell>
                 <TableCell>
                   {s.obligatory ? (
-                    <Badge variant="destructive">Obligatory</Badge>
+                    <Badge variant="destructive">{t("obligatory")}</Badge>
                   ) : (
-                    <Badge variant="secondary">Recommended</Badge>
+                    <Badge variant="secondary">{t("recommended")}</Badge>
                   )}
                 </TableCell>
               </TableRow>

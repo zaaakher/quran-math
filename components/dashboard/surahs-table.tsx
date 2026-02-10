@@ -10,19 +10,21 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import type { Surah } from "@/types/quran";
+import { useTranslations } from "next-intl";
 
 interface SurahsTableProps {
   surahs: Surah[];
 }
 
 export function SurahsTable({ surahs }: SurahsTableProps) {
+  const t = useTranslations("dashboard");
   let runningTotal = 0;
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>All 114 Surahs</CardTitle>
-        <CardDescription>Name, verse count, revelation type, and cumulative ayahs</CardDescription>
+        <CardTitle>{t("all_surahs")}</CardTitle>
+        <CardDescription>{t("name_verse_count_revelation_type")}</CardDescription>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[400px] w-full rounded-md border">
@@ -30,11 +32,11 @@ export function SurahsTable({ surahs }: SurahsTableProps) {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-14">#</TableHead>
-                <TableHead>English Name</TableHead>
-                <TableHead>Translation</TableHead>
-                <TableHead className="text-right">Ayahs</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead className="text-right">Cumulative</TableHead>
+                <TableHead>{t("english_name")}</TableHead>
+                <TableHead>{t("translation")}</TableHead>
+                <TableHead className="text-right">{t("ayahs")}</TableHead>
+                <TableHead>{t("type")}</TableHead>
+                <TableHead className="text-right">{t("cumulative")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

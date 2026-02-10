@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import type { Surah } from "@/types/quran";
+import { useTranslations } from "next-intl";
 
 interface LongestShortestProps {
   longest: Surah[];
@@ -16,21 +17,23 @@ interface LongestShortestProps {
 }
 
 export function LongestShortest({ longest, shortest }: LongestShortestProps) {
+  const t = useTranslations("dashboard");
+  
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Longest Surahs (by verses)</CardTitle>
-          <CardDescription>Top 10</CardDescription>
+          <CardTitle>{t("longest_surahs")}</CardTitle>
+          <CardDescription>{t("top_10")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead className="text-right">Ayahs</TableHead>
-                <TableHead>Type</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead className="text-right">{t("ayahs")}</TableHead>
+                <TableHead>{t("type")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -52,17 +55,17 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Shortest Surahs (by verses)</CardTitle>
-          <CardDescription>Top 10</CardDescription>
+          <CardTitle>{t("shortest_surahs")}</CardTitle>
+          <CardDescription>{t("top_10")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead className="text-right">Ayahs</TableHead>
-                <TableHead>Type</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead className="text-right">{t("ayahs")}</TableHead>
+                <TableHead>{t("type")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
