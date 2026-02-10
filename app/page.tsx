@@ -90,26 +90,8 @@ export default async function DashboardPage() {
   const surahCharacteristics = getSurahCharacteristics(surahs);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="container py-6">
-          <h1 className="text-3xl font-bold tracking-tight">Quran Analysis Dashboard</h1>
-          <p className="text-muted-foreground">
-            Data from{" "}
-            <a
-              href="https://alquran.cloud/api"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-foreground"
-            >
-              Al-Quran Cloud API
-            </a>
-          </p>
-        </div>
-      </header>
-
-      <main className="container py-8 space-y-8">
-        <section id="overview">
+    <div className="container py-8 space-y-8">
+      <section id="overview">
           <h2 className="text-xl font-semibold mb-4">Overview</h2>
           <OverviewCards
             totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
@@ -228,7 +210,6 @@ export default async function DashboardPage() {
             </TabsContent>
           </Tabs>
         </section>
-      </main>
     </div>
   );
 }

@@ -6,19 +6,26 @@ import {
   Calendar,
   Eye,
   FileText,
-  Globe,
   Hash,
   MessageCircle,
   PieChart,
   Search,
-  TrendingUp,
-  Users,
   Zap,
   Layout,
-  Map,
   Sparkles,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+} from "@/components/ui/sidebar";
 
 const navigationItems = [
   {
@@ -42,66 +49,62 @@ const navigationItems = [
   {
     category: "Linguistic",
     items: [
-      { title: "Word Frequency", icon: Search, href: "#words" },
-      { title: "Letter Frequency", icon: FileText, href: "#letters" },
-      { title: "Linguistic Patterns", icon: MessageCircle, href: "#patterns" },
-      { title: "Word Length Stats", icon: TrendingUp, href: "#word-length" },
+      { title: "Word & Letter Analysis", icon: Search, href: "#word-analysis" },
+      { title: "Linguistic Stats", icon: MessageCircle, href: "#word-analysis" },
     ],
   },
   {
     category: "Advanced",
     items: [
       { title: "Revelation Order", icon: Sparkles, href: "#revelation-order" },
-      { title: "Ayah Statistics", icon: BarChart3, href: "#ayah-stats" },
-      { title: "Themes & Topics", icon: Globe, href: "#themes" },
       { title: "Numeric Patterns", icon: Zap, href: "#numeric" },
-      { title: "Surah Relationships", icon: Map, href: "#relationships" },
+      { title: "Verses Per Surah", icon: BarChart3, href: "#verses-per-surah" },
     ],
   },
 ];
 
-function NavItem({
-  title,
-  icon: Icon,
-  href,
-}: {
-  title: string;
-  icon: React.FC<{ className?: string }>;
-  href: string;
-}) {
-  return (
-    <a
-      href={href}
-      className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-    >
-      <Icon className="w-4 h-4" />
-      <span>{title}</span>
-    </a>
-  );
-}
-
 export function AppSidebar() {
   return (
-    <aside className="w-64 border-r bg-background/50 backdrop-blur-sm sticky top-0 h-screen overflow-y-auto">
-      <div className="p-6">
-        <h2 className="text-xl font-bold tracking-tight">Quran Analysis</h2>
-        <p className="text-xs text-muted-foreground mt-1">Data & Insights</p>
-      </div>
-
-      <nav className="px-3 py-2 space-y-6">
-        {navigationItems.map((section) => (
-          <div key={section.category}>
-            <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              {section.category}
-            </h3>
-            <div className="space-y-1">
-              {section.items.map((item) => (
-                <NavItem key={item.href} {...item} />
-              ))}
-            </div>
+    <Sidebar collapsible="icon">
+      <SidebarHeader>
+        <div className="flex items-center gap-2 px-2 py-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0">
+          <Book className="h-6 w-6" />
+          <div className="group-data-[collapsible=icon]:hidden">
+            <p className="text-sm font-semibold">Quran Analysis</p>
+            <p className="text-xs text-muted-foreground">Dashboard</p>
           </div>
+        </div>
+      </SidebarHeader>
+
+      <SidebarContent>
+        {navigationItems.map((section) => (
+          <SidebarGroup key={section.category}>
+            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">
+              {section.category}
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {section.items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <SidebarMenuItem key={item.href}>
+                      <SidebarMenuButton
+                        asChild
+                        tooltip={item.title}
+                      >
+                        <a href={item.href} className="flex items-center gap-2">
+                          <Icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         ))}
-      </nav>
-    </aside>
+      </SidebarContent>
+    </Sidebar>
   );
 }
