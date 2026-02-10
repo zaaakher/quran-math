@@ -44,6 +44,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 import { DashboardSection } from "@/components/dashboard-section";
+import { ErrorDisplay } from "@/components/error-display";
 
 export default async function DashboardPage() {
   const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
@@ -54,11 +55,7 @@ export default async function DashboardPage() {
   ]);
 
   if (surahRes.code !== 200 || !surahRes.data) {
-    return (
-      <div className="container py-12 text-center">
-        <p className="text-destructive">Failed to load Quran data.</p>
-      </div>
-    );
+    return <ErrorDisplay messageKey="failed_load" namespace="common" />;
   }
 
   const surahs = surahRes.data;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   ChartConfig,
   ChartContainer,
@@ -19,10 +20,11 @@ interface VersesPerSurahChartProps {
 }
 
 export function VersesPerSurahChart({ data }: VersesPerSurahChartProps) {
+  const t = useTranslations("charts");
   return (
     <ChartWrapper
-      title="Verses per Surah"
-      description="Number of ayahs in each chapter (all 114 surahs)"
+      title={t("verses_per_surah")}
+      description={t("verses_per_surah_desc")}
     >
       <ChartContainer config={chartConfig} className="h-[400px] w-full">
         <BarChart data={data} margin={{ left: 0, right: 12 }}>

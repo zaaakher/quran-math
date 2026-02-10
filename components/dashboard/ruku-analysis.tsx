@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { ChartWrapper } from "./chart-wrapper";
 
@@ -8,10 +9,11 @@ interface RukuAnalysisProps {
 }
 
 export function RukuAnalysis({ data }: RukuAnalysisProps) {
+  const t = useTranslations("charts");
   return (
     <ChartWrapper
-      title="Ruku Distribution"
-      description="Verses per Ruku (reading sections) in the Quran"
+      title={t("ruku_distribution")}
+      description={t("ruku_distribution_desc")}
     >
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
