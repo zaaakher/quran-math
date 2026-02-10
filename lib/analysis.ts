@@ -9,7 +9,7 @@ export interface RevelationStats {
   medinanAyahs: number;
 }
 
-export function getRevelationStats(surahs: Surah[]): RevelationStats {
+export function getRevelationStats(surahs: Surah[],): RevelationStats {
   let meccanSurahs = 0;
   let medinanSurahs = 0;
   let meccanAyahs = 0;
@@ -33,9 +33,9 @@ export function getRevelationStats(surahs: Surah[]): RevelationStats {
   };
 }
 
-export function getVersesPerSurahChartData(surahs: Surah[]) {
+export function getVersesPerSurahChartData(surahs: Surah[], locale = "en") {
   return surahs.map((s) => ({
-    name: s.englishName,
+    name: s[locale === "en" ? "englishName" : "name"],
     number: s.number,
     verses: s.numberOfAyahs,
     revelationType: s.revelationType,
@@ -206,7 +206,7 @@ export function getAyahLengthStats(surahsWithAyahs?: any[]) {
 }
 
 /** Get top surahs by word count */
-export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15) {
+export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15, locale = "en") {
   if (!surahsWithAyahs) return [];
 
   return surahsWithAyahs
@@ -217,7 +217,7 @@ export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15) {
       }, 0);
       return {
         surahNumber: surah.number,
-        surahName: surah.name,
+        surahName: surah[locale === "en" ? "englishName" : "name"],
         words: wordCount,
         ayahs: surah.numberOfAyahs
       };
@@ -227,7 +227,7 @@ export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15) {
 }
 
 /** Get revelation order of surahs */
-export function getRevelationOrder(surahs: Surah[]) {
+export function getRevelationOrder(surahs: Surah[], locale = "en") {
   const revelationOrderData: { [key: string]: string } = {
     "1": "96", "2": "68", "3": "73", "4": "74", "5": "1", "6": "111",
     "7": "81", "8": "87", "9": "92", "10": "89", "11": "93", "12": "94",
@@ -365,7 +365,7 @@ export function getNumericPatterns(surahsWithAyahs?: any[]) {
 }
 
 /** Get surah characteristics and relationships */
-export function getSurahCharacteristics(surahs: Surah[]) {
+export function getSurahCharacteristics(surahs: Surah[], locale = "en") {
   const makkah = surahs.filter(s => s.revelationType.toLowerCase() === "meccan");
   const madinah = surahs.filter(s => s.revelationType.toLowerCase() === "medinan");
 
@@ -376,9 +376,9 @@ export function getSurahCharacteristics(surahs: Surah[]) {
     total: surahs.length,
     makkahSurahs: makkah.length,
     madinahSurahs: madinah.length,
-    longestSurahName: longestSurah.name,
+    longestSurahName: longestSurah[locale === "en" ? "englishName" : "name"],
     longestSurahVerses: longestSurah.numberOfAyahs,
-    shortestSurahName: shortestSurah.name,
+    shortestSurahName: shortestSurah[locale === "en" ? "englishName" : "name"],
     shortestSurahVerses: shortestSurah.numberOfAyahs,
   };
 }

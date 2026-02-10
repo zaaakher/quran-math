@@ -43,8 +43,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { DashboardSection } from "@/components/dashboard-section";
 import { ErrorDisplay } from "@/components/error-display";
+import { getLocale } from "next-intl/server";
 
 export default async function DashboardPage() {
+  let locale = await getLocale();
+
+  console.log('Loading dashboard data for locale:', locale);
 
   const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
     fetchSurahList(),
@@ -63,7 +67,7 @@ export default async function DashboardPage() {
 
   const revelationStats = getRevelationStats(surahs);
   const revelationChartData = getRevelationChartData(surahs);
-  const versesPerSurahData = getVersesPerSurahChartData(surahs);
+  const versesPerSurahData = getVersesPerSurahChartData(surahs, locale);
   const juzData = getJuzDistributionFromApi(juzList);
   const longest = getLongestSurahs(surahs, 10);
   const shortest = getShortestSurahs(surahs, 10);
@@ -79,12 +83,12 @@ export default async function DashboardPage() {
   const rukuDist = getRukuDistribution(surahsWithAyahs);
   const pageDist = getPageDistribution(surahsWithAyahs);
   const ayahLengthStats = getAyahLengthStats(surahsWithAyahs);
-  const topSurahsByWords = getTopSurahsByWordCount(surahsWithAyahs, 15);
-  const revelationOrder = getRevelationOrder(surahs);
+  const topSurahsByWords = getTopSurahsByWordCount(surahsWithAyahs, 15, locale);
+  const revelationOrder = getRevelationOrder(surahs, locale);
   const avgVersesPerPage = getAverageVersesPerPage(surahsWithAyahs);
   const linguisticStats = getLinguisticStats(surahsWithAyahs);
   const numericPatterns = getNumericPatterns(surahsWithAyahs);
-  const surahCharacteristics = getSurahCharacteristics(surahs);
+  const surahCharacteristics = getSurahCharacteristics(surahs, locale);
   const wordStats = {
     totalWords: linguisticStats.totalWords,
     totalLetters: linguisticStats.totalLetters
