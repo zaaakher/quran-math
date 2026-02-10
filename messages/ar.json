@@ -10,5 +10,23 @@
   },
   "common": {
     "github": "GitHub"
+  },
+  "dashboard": {
+    "overview": "نظرة عامة",
+    "revelation": "تحليل الوحي والهيكل",
+    "revelation_order": "ترتيب الوحي",
+    "surahs": "تحليل السور",
+    "verses": "تحليل الآيات",
+    "word_analysis": "التحليل اللغوي",
+    "numeric": "الأنماط الرقمية والتحليلات المتقدمة",
+    "juz": "توزيع الأجزاء",
+    "ruku": "تحليل الركوع",
+    "pages": "توزيع الصفحات",
+    "verses_per_surah": "الآيات لكل سورة",
+    "sajda": "تحليل السجدة",
+    "all_surahs": "جميع السور",
+    "sajda_verses": "آيات السجدة",
+    "avg_verses_per_page": "متوسط الآيات لكل صفحة",
+    "unique_words": "الكلمات الفريدة"
   }
 }

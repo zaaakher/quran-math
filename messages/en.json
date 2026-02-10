@@ -10,5 +10,23 @@
   },
   "common": {
     "github": "GitHub"
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "revelation": "Revelation & Structure Analysis",
+    "revelation_order": "Revelation Order",
+    "surahs": "Surah Analysis",
+    "verses": "Verse (Ayah) Analysis",
+    "word_analysis": "Linguistic Analysis",
+    "numeric": "Numeric Patterns & Advanced Analytics",
+    "juz": "Juz Distribution",
+    "ruku": "Ruku Analysis",
+    "pages": "Page Distribution",
+    "verses_per_surah": "Verses Per Surah",
+    "sajda": "Sajda Analysis",
+    "all_surahs": "All Surahs",
+    "sajda_verses": "Sajda Verses",
+    "avg_verses_per_page": "Average Verses Per Page",
+    "unique_words": "Unique Sanskrit Words"
   }
 }

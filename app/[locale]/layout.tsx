@@ -25,20 +25,24 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <Providers locale={locale} messages={messages}>
-      <div className="[--header-height:calc(--spacing(14))]">
-        <SidebarProvider className="flex flex-col">
-          <SiteHeader />
-          <div className="flex flex-1">
-            <AppSidebar />
-            <SidebarInset>
-              <div className="flex flex-1 flex-col gap-4">
-                {children}
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+      <body>
+        <Providers locale={locale} messages={messages}>
+          <div className="[--header-height:calc(--spacing(14))]">
+            <SidebarProvider className="flex flex-col">
+              <SiteHeader />
+              <div className="flex flex-1">
+                <AppSidebar />
+                <SidebarInset>
+                  <div className="flex flex-1 flex-col gap-4">
+                    {children}
+                  </div>
+                </SidebarInset>
               </div>
-            </SidebarInset>
+            </SidebarProvider>
           </div>
-        </SidebarProvider>
-      </div>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 }

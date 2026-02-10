@@ -43,6 +43,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import { DashboardSection } from "@/components/dashboard-section";
 
 export default async function DashboardPage() {
   const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
@@ -91,25 +92,23 @@ export default async function DashboardPage() {
 
   return (
     <div className="py-8 space-y-8 px-4">
-      <section id="overview">
-        <h2 className="text-xl font-semibold mb-4">Overview</h2>
-        <OverviewCards
-          totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
-          totalSurahs={surahs.length}
-          totalPages={604}
-          totalRukus={meta?.rukus?.count ?? 556}
-          totalSajdas={meta?.sajdas?.count ?? sajdas.length}
-          meccanAyahs={revelationStats.meccanAyahs}
-          medinanAyahs={revelationStats.medinanAyahs}
-          meccanSurahs={revelationStats.meccanSurahs}
-          medinanSurahs={revelationStats.medinanSurahs}
-        />
+      <section id="overview" className="pt-0">
+        <DashboardSection titleKey="overview" showSeparator={false}>
+          <OverviewCards
+            totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
+            totalSurahs={surahs.length}
+            totalPages={604}
+            totalRukus={meta?.rukus?.count ?? 556}
+            totalSajdas={meta?.sajdas?.count ?? sajdas.length}
+            meccanAyahs={revelationStats.meccanAyahs}
+            medinanAyahs={revelationStats.medinanAyahs}
+            meccanSurahs={revelationStats.meccanSurahs}
+            medinanSurahs={revelationStats.medinanSurahs}
+          />
+        </DashboardSection>
       </section>
 
-      <Separator />
-
-      <section id="revelation">
-        <h2 className="text-xl font-semibold mb-4">Revelation & Structure Analysis</h2>
+      <DashboardSection titleKey="revelation">
         <div className="grid gap-4 lg:grid-cols-2">
           <RevelationChart data={revelationChartData} />
           <div className="space-y-4">
@@ -124,34 +123,27 @@ export default async function DashboardPage() {
             </Suspense>
           </div>
         </div>
-      </section>
+      </DashboardSection>
 
-      <section id="revelation-order">
+      <DashboardSection titleKey="revelation_order">
         <RevelationOrder data={revelationOrder} />
-      </section>
+      </DashboardSection>
 
-      <Separator />
-
-      <section id="surahs">
-        <h2 className="text-xl font-semibold mb-4">Surah Analysis</h2>
+      <DashboardSection titleKey="surahs">
         <div className="grid gap-4">
           <SurahCharacteristics data={surahCharacteristics} />
           <LongestShortest longest={longest} shortest={shortest} />
         </div>
-      </section>
+      </DashboardSection>
 
-      <section id="verses">
-        <h2 className="text-xl font-semibold mb-4">Verse (Ayah) Analysis</h2>
+      <DashboardSection titleKey="verses">
         <div className="grid gap-4 lg:grid-cols-2">
           <AyahStats stats={ayahLengthStats} />
           <TopSurahsByWords data={topSurahsByWords} />
         </div>
-      </section>
+      </DashboardSection>
 
-      <Separator />
-
-      <section id="word-analysis">
-        <h2 className="text-xl font-semibold mb-4">Linguistic Analysis</h2>
+      <DashboardSection titleKey="word_analysis">
         <div className="grid gap-4 space-y-4">
           <LinguisticStats stats={linguisticStats} />
           <div className="grid gap-4 lg:grid-cols-2">
@@ -159,12 +151,9 @@ export default async function DashboardPage() {
             <WordLengthDistribution data={wordLengthDist} />
           </div>
         </div>
-      </section>
+      </DashboardSection>
 
-      <Separator />
-
-      <section id="numeric">
-        <h2 className="text-xl font-semibold mb-4">Numeric Patterns & Advanced Analytics</h2>
+      <DashboardSection titleKey="numeric">
         <div className="grid gap-4 lg:grid-cols-2">
           <NumericPatterns patterns={numericPatterns} />
           <div className="space-y-4">
@@ -178,25 +167,25 @@ export default async function DashboardPage() {
             </div>
           </div>
         </div>
-      </section>
+      </DashboardSection>
 
-      <section id="juz">
+      <DashboardSection titleKey="juz">
         <JuzChart data={juzData} />
-      </section>
+      </DashboardSection>
 
-      <section id="ruku">
+      <DashboardSection titleKey="ruku">
         <RukuAnalysis data={rukuDist} />
-      </section>
+      </DashboardSection>
 
-      <section id="pages">
+      <DashboardSection titleKey="pages">
         <PageDistribution data={pageDist} />
-      </section>
+      </DashboardSection>
 
-      <section id="verses-per-surah">
+      <DashboardSection titleKey="verses_per_surah">
         <VersesPerSurahChart data={versesPerSurahData} />
-      </section>
+      </DashboardSection>
 
-      <section id="sajda">
+      <DashboardSection titleKey="sajda">
         <Tabs defaultValue="surahs">
           <TabsList className="grid w-full max-w-md grid-cols-2">
             <TabsTrigger value="surahs">All Surahs</TabsTrigger>
@@ -209,7 +198,7 @@ export default async function DashboardPage() {
             <SajdaTable sajdas={sajdas} surahNames={surahNames} />
           </TabsContent>
         </Tabs>
-      </section>
+      </DashboardSection>
     </div>
   );
 }
