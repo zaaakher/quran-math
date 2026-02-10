@@ -48,7 +48,7 @@ import { getTranslations } from "next-intl/server";
 
 export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
-  
+
   const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
     fetchSurahList(),
     fetchMeta(),
@@ -92,7 +92,7 @@ export default async function DashboardPage() {
   return (
     <div className="py-8 space-y-8 px-4">
       <section id="overview" className="pt-0">
-        <DashboardSection titleKey={t("overview")} showSeparator={false}>
+        <DashboardSection titleKey={"overview"} showSeparator={false}>
           <OverviewCards
             totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
             totalSurahs={surahs.length}
@@ -117,7 +117,7 @@ export default async function DashboardPage() {
               sajdaObligatory={sajdaStats.obligatory}
               sajdaRecommended={sajdaStats.recommended}
             />
-              <WordStats />
+            <WordStats />
           </div>
         </div>
       </DashboardSection>
