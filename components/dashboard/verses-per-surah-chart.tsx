@@ -11,8 +11,8 @@ import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import { ChartWrapper } from "./chart-wrapper";
 
 const chartConfig = {
-  verses: { label: "Verses", color: "var(--chart-1)" },
-  number: { label: "Surah #", color: "var(--chart-2)" },
+  verses: { label: "verses", color: "var(--chart-1)" },
+  number: { label: "surah_number", color: "var(--chart-2)" },
 } satisfies ChartConfig;
 
 interface VersesPerSurahChartProps {

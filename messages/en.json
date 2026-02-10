@@ -140,6 +140,9 @@
     "medinan_desc": "Revealed in Madinah"
   },
   "charts": {
+    "meccan": "Meccan",
+    "medinan": "Medinan",
+    "surah_number": "Surah #",
     "revelation_type_ayahs": "Revelation Type (Ayahs)",
     "revelation_type_desc": "Meccan vs Medinan verses",
     "ayahs_per_juz": "Ayahs per Juz",

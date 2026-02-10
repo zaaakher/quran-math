@@ -11,8 +11,8 @@ import { Pie, PieChart } from "recharts";
 import { ChartWrapper } from "./chart-wrapper";
 
 const chartConfig = {
-  meccan: { label: "Meccan", color: "var(--chart-1)" },
-  medinan: { label: "Medinan", color: "var(--chart-2)" },
+  meccan: { label: "meccan", color: "var(--chart-1)" },
+  medinan: { label: "medinan", color: "var(--chart-2)" },
 } satisfies ChartConfig;
 
 interface RevelationChartProps {
@@ -37,7 +37,7 @@ export function RevelationChart({ data }: RevelationChartProps) {
             cy="50%"
             innerRadius={60}
             strokeWidth={2}
-            label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(1)}%`}
+            label={({ name, percent }) => `${t(name as "meccan" | "medinan")} ${((percent ?? 0) * 100).toFixed(1)}%`}
           />
         </PieChart>
       </ChartContainer>
