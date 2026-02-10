@@ -1,3 +1,5 @@
+import { useQuranStore } from "@/lib/store"
+
 const BASE = "https://api.alquran.cloud/v1";
 
 async function fetchJuzOnce(
@@ -111,4 +113,42 @@ export async function fetchSajda(
   });
   if (!res.ok) throw new Error("Failed to fetch sajda");
   return res.json();
+}
+
+/** Fetches all Quran data and stores it in the zustand store */
+export async function fetchAndStoreQuranData() {
+  const { setLoading, setData, setError } = useQuranStore.getState()
+  
+  try {
+    setLoading(true)
+    
+    // Fetch all data in parallel where possible
+    const [surahListRes, juzs] = await Promise.all([
+      fetchSurahList(),
+      fetchAllJuz()
+    ])
+    
+    if (!surahListRes?.data) {
+      throw new Error("Failed to fetch surah list")
+    }
+    
+    // Fetch full Quran data
+    const fullQuranRes = await fetchFullQuran()
+    
+    if (!fullQuranRes?.data?.surahs) {
+      throw new Error("Failed to fetch full Quran data")
+    }
+    
+    // Extract ayahs from all surahs
+    const ayahs: import("@/types/quran").Ayah[] = []
+    fullQuranRes.data.surahs.forEach(surah => {
+      ayahs.push(...surah.ayahs)
+    })
+    
+    setData(surahListRes.data, ayahs, juzs)
+    
+  } catch (error) {
+    console.error("Error fetching Quran data:", error)
+    setError(error instanceof Error ? error.message : "Failed to fetch Quran data")
+  }
 }

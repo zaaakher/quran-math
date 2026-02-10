@@ -1,0 +1,58 @@
+import { create } from 'zustand'
+import { Surah, Ayah, JuzData, AyahInJuz } from '@/types/quran'
+
+interface QuranStore {
+  // Data
+  surahs: Surah[]
+  ayahs: Ayah[]
+  juzs: JuzData[]
+  
+  // Loading state
+  isLoading: boolean
+  error: string | null
+  
+  // Actions
+  setData: (surahs: Surah[], ayahs: Ayah[], juzs: JuzData[]) => void
+  setLoading: (loading: boolean) => void
+  setError: (error: string | null) => void
+  clearData: () => void
+}
+
+export const useQuranStore = create<QuranStore>((set) => ({
+  // Initial state
+  surahs: [],
+  ayahs: [],
+  juzs: [],
+  isLoading: false,
+  error: null,
+  
+  // Actions
+  setData: (surahs: Surah[], ayahs: Ayah[], juzs: JuzData[]) => set((state) => ({
+    ...state,
+    surahs,
+    ayahs,
+    juzs,
+    isLoading: false,
+    error: null
+  })),
+  
+  setLoading: (loading: boolean) => set((state) => ({
+    ...state,
+    isLoading: loading
+  })),
+  
+  setError: (error: string | null) => set((state) => ({
+    ...state,
+    error,
+    isLoading: false
+  })),
+  
+  clearData: () => set((state) => ({
+    ...state,
+    surahs: [],
+    ayahs: [],
+    juzs: [],
+    isLoading: false,
+    error: null
+  }))
+}))

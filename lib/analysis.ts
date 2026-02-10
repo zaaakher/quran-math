@@ -36,6 +36,8 @@ export function getRevelationStats(surahs: Surah[]): RevelationStats {
 export function getVersesPerSurahChartData(surahs: Surah[], locale = "en") {
   return surahs.map((s) => ({
     name: s[locale === "en" ? "englishName" : "name"],
+    arName: s.name,
+    enName: s.englishName,
     number: s.number,
     verses: s.numberOfAyahs,
     revelationType: s.revelationType,
@@ -218,6 +220,8 @@ export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15, loc
       return {
         surahNumber: surah.number,
         surahName: surah[locale === "en" ? "englishName" : "name"],
+        arName: surah.name,
+        enName: surah.englishName,
         words: wordCount,
         ayahs: surah.numberOfAyahs
       };
@@ -377,8 +381,12 @@ export function getSurahCharacteristics(surahs: Surah[], locale = "en") {
     makkahSurahs: makkah.length,
     madinahSurahs: madinah.length,
     longestSurahName: longestSurah[locale === "en" ? "englishName" : "name"],
+    longestSurahArName: longestSurah.name,
+    longestSurahEnName: longestSurah.englishName,
     longestSurahVerses: longestSurah.numberOfAyahs,
     shortestSurahName: shortestSurah[locale === "en" ? "englishName" : "name"],
+    shortestSurahArName: shortestSurah.name,
+    shortestSurahEnName: shortestSurah.englishName,
     shortestSurahVerses: shortestSurah.numberOfAyahs,
   };
 }

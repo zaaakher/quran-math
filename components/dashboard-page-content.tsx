@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQuranStore } from "@/lib/store";
 import { fetchSurahList, fetchMeta, fetchAllJuz, fetchFullQuran } from "@/lib/quran-api";
 import {
   getRevelationStats,
@@ -52,35 +53,24 @@ interface DashboardPageContentProps {
 }
 
 export function DashboardPageContent({ locale }: DashboardPageContentProps) {
+  const { surahs, ayahs, juzs, isLoading, error } = useQuranStore();
   const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
+    if (surahs.length > 0 && ayahs.length > 0 && juzs.length > 0) {
       try {
-        setLoading(true);
-        setError(null);
-
-        const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
-          fetchSurahList(),
-          fetchMeta(),
-          fetchAllJuz(),
-          fetchFullQuran(),
-        ]);
-
-        if (surahRes.code !== 200 || !surahRes.data) {
-          throw new Error("Failed to fetch surah list");
-        }
-
-        const surahs = surahRes.data;
-        const meta = metaRes.code === 200 && metaRes.data ? metaRes.data : null;
-        const surahsWithAyahs = fullQuranRes?.code === 200 ? fullQuranRes.data?.surahs : [];
+        // Get meta data from surahs
+        const meta = {
+          ayahs: { count: ayahs.length },
+          surahs: { count: surahs.length, references: surahs },
+          sajdas: { count: 0, references: [] },
+          rukus: { count: 0, references: [] }
+        };
 
         const revelationStats = getRevelationStats(surahs);
         const revelationChartData = getRevelationChartData(surahs);
         const versesPerSurahData = getVersesPerSurahChartData(surahs, locale);
-        const juzData = getJuzDistributionFromApi(juzList);
+        const juzData = getJuzDistributionFromApi(juzs);
         const longest = getLongestSurahs(surahs, 10);
         const shortest = getShortestSurahs(surahs, 10);
         const ayahStats = getAyahCountStats(surahs);
@@ -90,16 +80,16 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         const surahNames = new Map(surahs.map((s) => [s.number, locale === "en" ? s.englishName : s.name]));
 
         // New advanced analysis
-        const letterFreq = getLetterFrequency(surahs, surahsWithAyahs);
-        const wordLengthDist = getWordLengthDistribution(surahsWithAyahs);
-        const rukuDist = getRukuDistribution(surahsWithAyahs);
-        const pageDist = getPageDistribution(surahsWithAyahs);
-        const ayahLengthStats = getAyahLengthStats(surahsWithAyahs);
-        const topSurahsByWords = getTopSurahsByWordCount(surahsWithAyahs, 15, locale);
+        const letterFreq = getLetterFrequency(surahs, ayahs);
+        const wordLengthDist = getWordLengthDistribution(ayahs);
+        const rukuDist = getRukuDistribution(ayahs);
+        const pageDist = getPageDistribution(ayahs);
+        const ayahLengthStats = getAyahLengthStats(ayahs);
+        const topSurahsByWords = getTopSurahsByWordCount(ayahs, 15, locale);
         const revelationOrder = getRevelationOrder(surahs, locale);
-        const avgVersesPerPage = getAverageVersesPerPage(surahsWithAyahs);
-        const linguisticStats = getLinguisticStats(surahsWithAyahs);
-        const numericPatterns = getNumericPatterns(surahsWithAyahs);
+        const avgVersesPerPage = getAverageVersesPerPage(ayahs);
+        const linguisticStats = getLinguisticStats(ayahs);
+        const numericPatterns = getNumericPatterns(ayahs);
         const surahCharacteristics = getSurahCharacteristics(surahs, locale);
         const wordStats = {
           totalWords: linguisticStats.totalWords,
@@ -133,21 +123,16 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
           wordStats,
         });
       } catch (err) {
-        console.error("Error fetching dashboard data:", err);
-        setError(err instanceof Error ? err.message : "Failed to load dashboard data");
-      } finally {
-        setLoading(false);
+        console.error("Error processing dashboard data:", err);
       }
     }
-
-    fetchData();
-  }, [locale]);
+  }, [surahs, ayahs, juzs, locale]);
 
   if (error) {
     return <ErrorDisplay messageKey="failed_load" namespace="common" />;
   }
 
-  if (loading || !data) {
+  if (isLoading || !data) {
     return (
       <div className="py-8 space-y-8 px-4">
         <section id="overview" className="pt-0">
@@ -261,7 +246,6 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
   }
 
   const {
-    surahs,
     meta,
     revelationStats,
     revelationChartData,
