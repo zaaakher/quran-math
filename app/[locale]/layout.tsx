@@ -37,9 +37,10 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
   const direction = localeDirections[locale];
 
+  console.log('direction', direction);
   return (
     <Providers locale={locale} messages={messages}>
-      <div className="[--header-height:calc(--spacing(14))]">
+      <div dir={direction} className="[--header-height:calc(--spacing(14))]">
         <SidebarProvider className="flex flex-col">
           <SiteHeader />
           <div className="flex flex-1">
