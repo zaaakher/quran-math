@@ -32,7 +32,7 @@ export default function RootLayout({
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset>
-            <header className="flex h-16 items-center gap-4 border-b px-4">
+            <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] duration-200 ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
               <SidebarTrigger className="-ml-1" />
               <h1 className="text-2xl font-bold">Quran Analysis Dashboard</h1>
             </header>
