@@ -45,9 +45,14 @@ import { DashboardSection } from "@/components/dashboard-section";
 import { ErrorDisplay } from "@/components/error-display";
 import { getLocale } from "next-intl/server";
 
-export default async function DashboardPage() {
-  let locale = await getLocale();
 
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function DashboardPage({ params }: Props) {
+  const locale = await getLocale();
+  
   console.log('Loading dashboard data for locale:', locale);
 
   const [surahRes, metaRes, juzList, fullQuranRes] = await Promise.all([
@@ -75,7 +80,7 @@ export default async function DashboardPage() {
 
   const sajdas = meta?.sajdas?.references ?? [];
   const sajdaStats = getSajdaStats(sajdas);
-  const surahNames = new Map(surahs.map((s) => [s.number, s.englishName]));
+  const surahNames = new Map(surahs.map((s) => [s.number, locale === "en" ? s.englishName : s.name]));
 
   // New advanced analysis
   const letterFreq = getLetterFrequency(surahs, surahsWithAyahs);

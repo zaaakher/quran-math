@@ -12,7 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import type { Surah } from "@/types/quran";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface SurahsTableProps {
   surahs: Surah[];
@@ -20,6 +20,7 @@ interface SurahsTableProps {
 
 export function SurahsTable({ surahs }: SurahsTableProps) {
   const t = useTranslations("dashboard");
+  const locale = useLocale(); // Ensure locale is available for translations
   let runningTotal = 0;
 
   return (
@@ -47,10 +48,8 @@ export function SurahsTable({ surahs }: SurahsTableProps) {
                 return (
                   <TableRow key={s.number}>
                     <TableCell className="font-medium">{s.number}</TableCell>
-                    <TableCell>{s.name}</TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {s.englishNameTranslation}
-                    </TableCell>
+                    <TableCell>{s[locale === 'en' ? 'englishName' : 'name']}</TableCell>
+
                     <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                     <TableCell>
                       <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>

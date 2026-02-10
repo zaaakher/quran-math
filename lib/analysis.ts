@@ -9,7 +9,7 @@ export interface RevelationStats {
   medinanAyahs: number;
 }
 
-export function getRevelationStats(surahs: Surah[],): RevelationStats {
+export function getRevelationStats(surahs: Surah[]): RevelationStats {
   let meccanSurahs = 0;
   let medinanSurahs = 0;
   let meccanAyahs = 0;
