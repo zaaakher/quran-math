@@ -111,7 +111,7 @@ export default async function DashboardPage() {
       <section id="revelation">
         <h2 className="text-xl font-semibold mb-4">Revelation & Structure Analysis</h2>
         <div className="grid gap-4 lg:grid-cols-2">
-          {/* <RevelationChart data={revelationChartData} /> */}
+          <RevelationChart data={revelationChartData} />
           <div className="space-y-4">
             <StatsCards
               ayahStats={ayahStats}
@@ -155,8 +155,8 @@ export default async function DashboardPage() {
         <div className="grid gap-4 space-y-4">
           <LinguisticStats stats={linguisticStats} />
           <div className="grid gap-4 lg:grid-cols-2">
-            {/* <LetterFrequency data={letterFreq} /> */}
-            {/* <WordLengthDistribution data={wordLengthDist} /> */}
+            <LetterFrequency data={letterFreq} />
+            <WordLengthDistribution data={wordLengthDist} />
           </div>
         </div>
       </section>
@@ -181,19 +181,19 @@ export default async function DashboardPage() {
       </section>
 
       <section id="juz">
-        {/* <JuzChart data={juzData} /> */}
+        <JuzChart data={juzData} />
       </section>
 
       <section id="ruku">
-        {/* <RukuAnalysis data={rukuDist} /> */}
+        <RukuAnalysis data={rukuDist} />
       </section>
 
       <section id="pages">
-        {/* <PageDistribution data={pageDist} /> */}
+        <PageDistribution data={pageDist} />
       </section>
 
       <section id="verses-per-surah">
-        {/* <VersesPerSurahChart data={versesPerSurahData} /> */}
+        <VersesPerSurahChart data={versesPerSurahData} />
       </section>
 
       <section id="sajda">

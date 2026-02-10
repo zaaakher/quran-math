@@ -23,7 +23,7 @@ export function LetterFrequency({ data }: LetterFrequencyProps) {
         <CardDescription>Most common Arabic letters in the Quran</CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer  height={300}>
           <BarChart data={data}>
             <XAxis dataKey="letter" angle={-45} textAnchor="end" height={80} />
             <YAxis />
