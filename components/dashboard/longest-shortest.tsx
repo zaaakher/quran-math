@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import type { Surah } from "@/types/quran";
 import { useTranslations } from "next-intl";
+import { useLocaleContext } from "@/lib/locale-context";
 
 interface LongestShortestProps {
   longest: Surah[];
@@ -20,6 +21,8 @@ interface LongestShortestProps {
 
 export function LongestShortest({ longest, shortest }: LongestShortestProps) {
   const t = useTranslations("dashboard");
+  const { locale } = useLocaleContext();
+  const isArabic = locale === "ar";
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
@@ -42,7 +45,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
               {longest.map((s) => (
                 <TableRow key={s.number}>
                   <TableCell className="font-medium">{s.number}</TableCell>
-                  <TableCell>{s.name}</TableCell>
+                  <TableCell>{isArabic ? s.name : s.englishName}</TableCell>
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
                     <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
@@ -74,7 +77,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
               {shortest.map((s) => (
                 <TableRow key={s.number}>
                   <TableCell className="font-medium">{s.number}</TableCell>
-                  <TableCell>{s.name}</TableCell>
+                  <TableCell>{isArabic ? s.name : s.englishName}</TableCell>
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
                     <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
