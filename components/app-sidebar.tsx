@@ -50,7 +50,6 @@ const navigationItems = [
     category: "Linguistic",
     items: [
       { title: "Word & Letter Analysis", icon: Search, href: "#word-analysis" },
-      { title: "Linguistic Stats", icon: MessageCircle, href: "#word-analysis" },
     ],
   },
   {
@@ -67,7 +66,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex items-center gap-2 px-2 py-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0">
+        <div className="flex items-center gap-2 px- py- group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0">
           <Book className="h-6 w-6" />
           <div className="group-data-[collapsible=icon]:hidden">
             <p className="text-sm font-semibold">Quran Analysis</p>
@@ -77,8 +76,8 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        {navigationItems.map((section) => (
-          <SidebarGroup key={section.category}>
+        {navigationItems.map((section, index) => (
+          <SidebarGroup key={`group-${index}`}>
             <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">
               {section.category}
             </SidebarGroupLabel>
@@ -87,7 +86,7 @@ export function AppSidebar() {
                 {section.items.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <SidebarMenuItem key={item.href}>
+                    <SidebarMenuItem key={`${section.category}-${item.href}`}>
                       <SidebarMenuButton
                         asChild
                         tooltip={item.title}

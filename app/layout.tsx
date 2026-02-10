@@ -38,7 +38,7 @@ export default function RootLayout({
                 <SidebarTrigger />
                 <h1 className="text-2xl font-bold">Quran Analysis Dashboard</h1>
               </div>
-              <main className="flex-1">
+              <main className="flex-1 p-6">
                 {children}
               </main>
             </div>
