@@ -67,6 +67,17 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
           rukus: { count: 0, references: [] }
         };
 
+        // Build surahs with ayahs structure for analysis functions
+        const surahsWithAyahs = surahs.map(surah => ({
+          ...surah,
+          ayahs: ayahs.filter(ayah => {
+            // Calculate which surah this ayah belongs to based on cumulative ayah counts
+            const startAyah = surahs.slice(0, surah.number - 1).reduce((sum, s) => sum + s.numberOfAyahs, 1);
+            const endAyah = startAyah + surah.numberOfAyahs - 1;
+            return ayah.number >= startAyah && ayah.number <= endAyah;
+          })
+        }));
+
         const revelationStats = getRevelationStats(surahs);
         const revelationChartData = getRevelationChartData(surahs);
         const versesPerSurahData = getVersesPerSurahChartData(surahs, locale);
@@ -79,17 +90,17 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         const sajdaStats = getSajdaStats(sajdas);
         const surahNames = new Map(surahs.map((s) => [s.number, locale === "en" ? s.englishName : s.name]));
 
-        // New advanced analysis
-        const letterFreq = getLetterFrequency(surahs, ayahs);
-        const wordLengthDist = getWordLengthDistribution(ayahs);
-        const rukuDist = getRukuDistribution(ayahs);
-        const pageDist = getPageDistribution(ayahs);
-        const ayahLengthStats = getAyahLengthStats(ayahs);
-        const topSurahsByWords = getTopSurahsByWordCount(ayahs, 15, locale);
+        // New advanced analysis - now passing proper surahsWithAyahs structure
+        const letterFreq = getLetterFrequency(surahs, surahsWithAyahs);
+        const wordLengthDist = getWordLengthDistribution(surahsWithAyahs);
+        const rukuDist = getRukuDistribution(surahsWithAyahs);
+        const pageDist = getPageDistribution(surahsWithAyahs);
+        const ayahLengthStats = getAyahLengthStats(surahsWithAyahs);
+        const topSurahsByWords = getTopSurahsByWordCount(surahsWithAyahs, 15, locale);
         const revelationOrder = getRevelationOrder(surahs, locale);
-        const avgVersesPerPage = getAverageVersesPerPage(ayahs);
-        const linguisticStats = getLinguisticStats(ayahs);
-        const numericPatterns = getNumericPatterns(ayahs);
+        const avgVersesPerPage = getAverageVersesPerPage(surahsWithAyahs);
+        const linguisticStats = getLinguisticStats(surahsWithAyahs);
+        const numericPatterns = getNumericPatterns(surahsWithAyahs);
         const surahCharacteristics = getSurahCharacteristics(surahs, locale);
         const wordStats = {
           totalWords: linguisticStats.totalWords,

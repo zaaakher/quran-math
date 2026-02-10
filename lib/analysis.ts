@@ -219,10 +219,20 @@ export function getAyahLengthStats(surahsWithAyahs?: any[]) {
 
 /** Get top surahs by word count */
 export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15, locale = "en") {
-  if (!surahsWithAyahs) return [];
+  if (!surahsWithAyahs || !Array.isArray(surahsWithAyahs)) return [];
 
   return surahsWithAyahs
     .map(surah => {
+      if (!surah?.ayahs || !Array.isArray(surah.ayahs)) {
+        return {
+          surahNumber: surah.number,
+          surahName: surah[locale === "en" ? "englishName" : "name"],
+          arName: surah.name,
+          enName: surah.englishName,
+          words: 0,
+          ayahs: surah.numberOfAyahs
+        };
+      }
       const wordCount = surah.ayahs.reduce((sum: number, ayah: any) => {
         const words = ayah.text.split(/\s+/).filter((w: string) => w.length > 0);
         return sum + words.length;
