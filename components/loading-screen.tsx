@@ -3,6 +3,7 @@
 import React from "react";
 import { Loader2 } from "lucide-react";
 import { useQuranStore } from "@/lib/store";
+import { Progress } from "./ui/progress";
 
 export function LoadingScreen() {
   const { isLoading, progress } = useQuranStore();
@@ -15,9 +16,6 @@ export function LoadingScreen() {
     if (progress < 100) return "Almost ready...";
     return "Processing dashboard data...";
   };
-
-  // Use animation to show indeterminate progress when > 95 but not at 100
-  const displayProgress = progress >= 95 ? 95 : progress;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
@@ -35,10 +33,9 @@ export function LoadingScreen() {
 
         {/* Progress bar */}
         <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-          <div
-            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-            style={{ width: `${displayProgress}%` }}
-          ></div>
+          <Progress value={progress} />
+
+
         </div>
 
         {/* Progress text */}

@@ -145,7 +145,7 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
 
   // If no data is available yet, show loading screen
   if (!data) {
-    return <LoadingScreen />;
+    return null
   }
 
   const {
