@@ -33,7 +33,6 @@ export function SiteHeader() {
                     >
                         <SidebarIcon />
                     </Button>
-                    {/* <Separator orientation="vertical" className="mr- h-4" /> */}
                     <div className="flex flex-col">
                         <h1 className="font-semibold">{t("title")}</h1>
                         <p className="text-xs text-muted-foreground">{t("subtitle")}</p>
@@ -51,7 +50,6 @@ export function SiteHeader() {
                         </Button>
                     </Link>
                 </div>
-
             </div>
         </header>
     )

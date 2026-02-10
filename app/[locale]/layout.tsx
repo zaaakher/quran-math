@@ -36,24 +36,20 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
-        <Providers locale={locale} messages={messages}>
-          <div className="[--header-height:calc(--spacing(14))]">
-            <SidebarProvider className="flex flex-col">
-              <SiteHeader />
-              <div className="flex flex-1">
-                <AppSidebar />
-                <SidebarInset>
-                  <div className="flex flex-1 flex-col gap-4">
-                    {children}
-                  </div>
-                </SidebarInset>
+    <Providers locale={locale} messages={messages}>
+      <div className="[--header-height:calc(--spacing(14))]">
+        <SidebarProvider className="flex flex-col">
+          <SiteHeader />
+          <div className="flex flex-1">
+            <AppSidebar />
+            <SidebarInset>
+              <div className="flex flex-1 flex-col gap-4">
+                {children}
               </div>
-            </SidebarProvider>
+            </SidebarInset>
           </div>
-        </Providers>
-      </body>
-    </html>
+        </SidebarProvider>
+      </div>
+    </Providers>
   );
 }

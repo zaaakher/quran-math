@@ -4,6 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --font-geist-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 html, body {
   height: 100%;
   overflow: hidden; /* Lock the main viewport */

@@ -118,19 +118,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
       {...props}
     >
-
-      {/*  <Sidebar collapsible="icon" {...props}> */}
-      {/* <SidebarHeader>
-        <div className="flex items-center gap-2 px-2">
-          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <Book className="size-4" />
-          </div>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">Quran</span>
-            <span className="truncate text-xs">Analysis</span>
-          </div>
-        </div>
-      </SidebarHeader> */}
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
