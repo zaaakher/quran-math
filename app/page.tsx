@@ -1,64 +1,139 @@
-import Image from "next/image";
+import { fetchSurahList, fetchMeta, fetchAllJuz } from "@/lib/quran-api";
+import {
+  getRevelationStats,
+  getRevelationChartData,
+  getVersesPerSurahChartData,
+  getJuzDistributionFromApi,
+  getLongestSurahs,
+  getShortestSurahs,
+  getAyahCountStats,
+  getSajdaStats,
+} from "@/lib/analysis";
+import { OverviewCards } from "@/components/dashboard/overview-cards";
+import { RevelationChart } from "@/components/dashboard/revelation-chart";
+import { VersesPerSurahChart } from "@/components/dashboard/verses-per-surah-chart";
+import { JuzChart } from "@/components/dashboard/juz-chart";
+import { SurahsTable } from "@/components/dashboard/surahs-table";
+import { LongestShortest } from "@/components/dashboard/longest-shortest";
+import { SajdaTable } from "@/components/dashboard/sajda-table";
+import { StatsCards } from "@/components/dashboard/stats-cards";
+import { WordStats } from "@/components/dashboard/word-stats";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
 
-export default function Home() {
+export default async function DashboardPage() {
+  const [surahRes, metaRes, juzList] = await Promise.all([
+    fetchSurahList(),
+    fetchMeta(),
+    fetchAllJuz(),
+  ]);
+
+  if (surahRes.code !== 200 || !surahRes.data) {
+    return (
+      <div className="container py-12 text-center">
+        <p className="text-destructive">Failed to load Quran data.</p>
+      </div>
+    );
+  }
+
+  const surahs = surahRes.data;
+  const meta = metaRes.code === 200 && metaRes.data ? metaRes.data : null;
+
+  const revelationStats = getRevelationStats(surahs);
+  const revelationChartData = getRevelationChartData(surahs);
+  const versesPerSurahData = getVersesPerSurahChartData(surahs);
+  const juzData = getJuzDistributionFromApi(juzList);
+  const longest = getLongestSurahs(surahs, 10);
+  const shortest = getShortestSurahs(surahs, 10);
+  const ayahStats = getAyahCountStats(surahs);
+
+  const sajdas = meta?.sajdas?.references ?? [];
+  const sajdaStats = getSajdaStats(sajdas);
+  const surahNames = new Map(surahs.map((s) => [s.number, s.englishName]));
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+    <div className="min-h-screen bg-background">
+      <header className="border-b">
+        <div className="container py-6">
+          <h1 className="text-3xl font-bold tracking-tight">Quran Analysis Dashboard</h1>
+          <p className="text-muted-foreground">
+            Data from{" "}
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="https://alquran.cloud/api"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-foreground"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Al-Quran Cloud API
+            </a>
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+
+      <main className="container py-8 space-y-8">
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Overview</h2>
+          <OverviewCards
+            totalAyahs={meta?.ayahs?.count ?? revelationStats.meccan + revelationStats.medinan}
+            totalSurahs={surahs.length}
+            totalPages={604}
+            totalRukus={meta?.rukus?.count ?? 556}
+            totalSajdas={meta?.sajdas?.count ?? sajdas.length}
+            meccanAyahs={revelationStats.meccanAyahs}
+            medinanAyahs={revelationStats.medinanAyahs}
+            meccanSurahs={revelationStats.meccanSurahs}
+            medinanSurahs={revelationStats.medinanSurahs}
+          />
+        </section>
+
+        <Separator />
+
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Numeric & revelation analysis</h2>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <RevelationChart data={revelationChartData} />
+            <div className="space-y-4">
+              <StatsCards
+                ayahStats={ayahStats}
+                sajdaTotal={sajdaStats.total}
+                sajdaObligatory={sajdaStats.obligatory}
+                sajdaRecommended={sajdaStats.recommended}
+              />
+              <Suspense fallback={<Skeleton className="h-[140px] w-full rounded-lg" />}>
+                <WordStats />
+              </Suspense>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <VersesPerSurahChart data={versesPerSurahData} />
+        </section>
+
+        <section>
+          <JuzChart data={juzData} />
+        </section>
+
+        <section>
+          <LongestShortest longest={longest} shortest={shortest} />
+        </section>
+
+        <section>
+          <Tabs defaultValue="surahs">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="surahs">All Surahs</TabsTrigger>
+              <TabsTrigger value="sajda">Sajda Verses</TabsTrigger>
+            </TabsList>
+            <TabsContent value="surahs" className="mt-4">
+              <SurahsTable surahs={surahs} />
+            </TabsContent>
+            <TabsContent value="sajda" className="mt-4">
+              <SajdaTable sajdas={sajdas} surahNames={surahNames} />
+            </TabsContent>
+          </Tabs>
+        </section>
       </main>
     </div>
   );
