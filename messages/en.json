@@ -134,14 +134,14 @@
     "rukus_desc": "Section divisions",
     "sajda_verses": "Sajda Verses",
     "sajda_verses_desc": "Prostration verses",
-    "meccan": "Meccan",
+    "meccan": "meccan",
     "meccan_desc": "Revealed in Makkah",
-    "medinan": "Medinan",
+    "medinan": "medinan",
     "medinan_desc": "Revealed in Madinah"
   },
   "charts": {
-    "Meccan": "Meccan",
-    "Medinan": "Medinan",
+    "meccan": "Meccan",
+    "medinan": "Medinan",
     "surah_number": "Surah #",
     "revelation_type_ayahs": "Revelation Type (Ayahs)",
     "revelation_type_desc": "Meccan vs Medinan verses",

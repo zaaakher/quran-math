@@ -51,7 +51,7 @@ export function SurahsTable({ surahs }: SurahsTableProps) {
                     </TableCell>
                     <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                     <TableCell>
-                      <Badge variant={s.revelationType === "Meccan" ? "default" : "secondary"}>
+                      <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
                         {s.revelationType}
                       </Badge>
                     </TableCell>

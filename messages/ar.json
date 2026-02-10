@@ -139,8 +139,8 @@
     "medinan_desc": "نزل في المدينة"
   },
   "charts": {
-    "Meccan": "مكي",
-    "Medinan": "مدني",
+    "meccan": "مكي",
+    "medinan": "مدني",
     "surah_number": "سورة #",
     "revelation_type_ayahs": "نوع الوحي (الآيات)",
     "revelation_type_desc": "الآيات المكية مقابل المدنية",

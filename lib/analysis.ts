@@ -15,7 +15,7 @@ export function getRevelationStats(surahs: Surah[]): RevelationStats {
   let meccanAyahs = 0;
   let medinanAyahs = 0;
   for (const s of surahs) {
-    if (s.revelationType === "Meccan") {
+    if (s.revelationType.toLowerCase() === "meccan") {
       meccanSurahs++;
       meccanAyahs += s.numberOfAyahs;
     } else {
@@ -53,8 +53,8 @@ export function getShortestSurahs(surahs: Surah[], n = 10) {
 export function getRevelationChartData(surahs: Surah[]) {
   const stats = getRevelationStats(surahs);
   return [
-    { name: "Meccan", ayahs: stats.meccanAyahs, surahs: stats.meccanSurahs, fill: "var(--chart-1)" },
-    { name: "Medinan", ayahs: stats.medinanAyahs, surahs: stats.medinanSurahs, fill: "var(--chart-2)" },
+    { name: "meccan", ayahs: stats.meccanAyahs, surahs: stats.meccanSurahs, fill: "var(--chart-1)" },
+    { name: "medinan", ayahs: stats.medinanAyahs, surahs: stats.medinanSurahs, fill: "var(--chart-2)" },
   ];
 }
 
@@ -102,7 +102,7 @@ export function countWordsAndLetters(arabicText: string) {
 export function getLetterFrequency(surahs: Surah[], surahsWithAyahs?: any[]) {
   const letterMap = new Map<string, number>();
   if (!surahsWithAyahs) return Array.from(letterMap.entries()).map(([letter, count]) => ({ letter, count }));
-  
+
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
       const text = ayah.text.replace(/[\s\n]/g, "");
@@ -111,7 +111,7 @@ export function getLetterFrequency(surahs: Surah[], surahsWithAyahs?: any[]) {
       }
     }
   }
-  
+
   return Array.from(letterMap.entries())
     .map(([letter, count]) => ({ letter, count }))
     .sort((a, b) => b.count - a.count)
@@ -122,7 +122,7 @@ export function getLetterFrequency(surahs: Surah[], surahsWithAyahs?: any[]) {
 export function getWordLengthDistribution(surahsWithAyahs?: any[]) {
   const lengthMap = new Map<number, number>();
   if (!surahsWithAyahs) return [];
-  
+
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
       const words = ayah.text.split(/\s+/).filter((w: string) => w.length > 0);
@@ -132,7 +132,7 @@ export function getWordLengthDistribution(surahsWithAyahs?: any[]) {
       }
     }
   }
-  
+
   return Array.from(lengthMap.entries())
     .map(([length, count]) => ({ length, count }))
     .sort((a, b) => a.length - b.length);
@@ -142,7 +142,7 @@ export function getWordLengthDistribution(surahsWithAyahs?: any[]) {
 export function getRukuDistribution(surahsWithAyahs?: any[]) {
   const rukuMap = new Map<number, { count: number; surahCount: number }>();
   if (!surahsWithAyahs) return [];
-  
+
   for (const surah of surahsWithAyahs) {
     const rukuSet = new Set<number>();
     for (const ayah of surah.ayahs) {
@@ -155,7 +155,7 @@ export function getRukuDistribution(surahsWithAyahs?: any[]) {
       }
     }
   }
-  
+
   return Array.from(rukuMap.entries())
     .map(([ruku, data]) => ({ ruku, ayahs: data.count }))
     .sort((a, b) => b.ayahs - a.ayahs)
@@ -166,7 +166,7 @@ export function getRukuDistribution(surahsWithAyahs?: any[]) {
 export function getPageDistribution(surahsWithAyahs?: any[]) {
   const pageMap = new Map<number, number>();
   if (!surahsWithAyahs) return [];
-  
+
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
       if (ayah.page) {
@@ -174,7 +174,7 @@ export function getPageDistribution(surahsWithAyahs?: any[]) {
       }
     }
   }
-  
+
   return Array.from(pageMap.entries())
     .map(([page, ayahs]) => ({ page, ayahs }))
     .sort((a, b) => a.page - b.page);
@@ -183,20 +183,20 @@ export function getPageDistribution(surahsWithAyahs?: any[]) {
 /** Analyze ayah (verse) length distribution */
 export function getAyahLengthStats(surahsWithAyahs?: any[]) {
   if (!surahsWithAyahs) return { avg: 0, min: 0, max: 0, median: 0 };
-  
+
   const lengths: number[] = [];
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
       lengths.push(ayah.text.length);
     }
   }
-  
+
   const sorted = lengths.sort((a, b) => a - b);
   const avg = lengths.reduce((a, b) => a + b, 0) / lengths.length;
-  const median = sorted.length % 2 === 0 
+  const median = sorted.length % 2 === 0
     ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
     : sorted[Math.floor(sorted.length / 2)];
-  
+
   return {
     avg: Math.round(avg),
     min: Math.min(...lengths),
@@ -208,7 +208,7 @@ export function getAyahLengthStats(surahsWithAyahs?: any[]) {
 /** Get top surahs by word count */
 export function getTopSurahsByWordCount(surahsWithAyahs?: any[], limit = 15) {
   if (!surahsWithAyahs) return [];
-  
+
   return surahsWithAyahs
     .map(surah => {
       const wordCount = surah.ayahs.reduce((sum: number, ayah: any) => {
@@ -251,8 +251,8 @@ export function getRevelationOrder(surahs: Surah[]) {
     "111": "14"
   };
 
-  const meccan = surahs.filter((s) => s.revelationType === "Meccan");
-  const medinan = surahs.filter((s) => s.revelationType === "Medinan");
+  const meccan = surahs.filter((s) => s.revelationType.toLowerCase() === "meccan");
+  const medinan = surahs.filter((s) => s.revelationType.toLowerCase() === "medinan");
 
   return {
     total: surahs.length,
@@ -266,7 +266,7 @@ export function getRevelationOrder(surahs: Surah[]) {
 /** Get average verses per page */
 export function getAverageVersesPerPage(surahsWithAyahs?: any[]) {
   if (!surahsWithAyahs) return 0;
-  
+
   const pageMap = new Map<number, number>();
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
@@ -275,7 +275,7 @@ export function getAverageVersesPerPage(surahsWithAyahs?: any[]) {
       }
     }
   }
-  
+
   if (pageMap.size === 0) return 0;
   const total = Array.from(pageMap.values()).reduce((a, b) => a + b, 0);
   return Math.round((total / pageMap.size) * 10) / 10;
@@ -290,25 +290,25 @@ export function getLinguisticStats(surahsWithAyahs?: any[]) {
     averageWordLength: 0,
     typeTokenRatio: 0
   };
-  
+
   const wordMap = new Map<string, number>();
   let totalWords = 0;
   let totalLetters = 0;
   let totalWordLength = 0;
-  
+
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
       const words = ayah.text.split(/\s+/).filter((w: string) => w.length > 0);
       totalWords += words.length;
       totalLetters += ayah.text.replace(/\s/g, "").length;
-      
+
       for (const word of words) {
         wordMap.set(word, (wordMap.get(word) ?? 0) + 1);
         totalWordLength += word.length;
       }
     }
   }
-  
+
   return {
     totalWords,
     totalLetters,
@@ -325,38 +325,38 @@ export function getNumericPatterns(surahsWithAyahs?: any[]) {
     primeVersesCount: 0,
     fibonacciVersesCount: 0
   };
-  
+
   const patterns = {
     perfectSquares: [] as number[],
     primes: [] as number[],
     fibonaccis: [] as number[],
   };
-  
+
   const ayahNumbers = new Set<number>();
   for (const surah of surahsWithAyahs) {
     for (const ayah of surah.ayahs) {
       ayahNumbers.add(ayah.number);
     }
   }
-  
+
   const isPrime = (n: number) => {
     if (n < 2) return false;
     for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
     return true;
   };
-  
+
   const isFibonacci = (n: number) => {
     let a = 0, b = 1;
     while (a < n) [a, b] = [b, a + b];
     return a === n;
   };
-  
+
   for (const num of ayahNumbers) {
     if (Math.sqrt(num) % 1 === 0) patterns.perfectSquares.push(num);
     if (isPrime(num)) patterns.primes.push(num);
     if (isFibonacci(num)) patterns.fibonaccis.push(num);
   }
-  
+
   return {
     perfectSquareVersesCount: patterns.perfectSquares.length,
     primeVersesCount: patterns.primes.length,
@@ -366,12 +366,12 @@ export function getNumericPatterns(surahsWithAyahs?: any[]) {
 
 /** Get surah characteristics and relationships */
 export function getSurahCharacteristics(surahs: Surah[]) {
-  const makkah = surahs.filter(s => s.revelationType === "Meccan");
-  const madinah = surahs.filter(s => s.revelationType === "Medinan");
-  
+  const makkah = surahs.filter(s => s.revelationType.toLowerCase() === "meccan");
+  const madinah = surahs.filter(s => s.revelationType.toLowerCase() === "medinan");
+
   const longestSurah = surahs.reduce((max, s) => s.numberOfAyahs > max.numberOfAyahs ? s : max);
   const shortestSurah = surahs.reduce((min, s) => s.numberOfAyahs < min.numberOfAyahs ? s : min);
-  
+
   return {
     total: surahs.length,
     makkahSurahs: makkah.length,

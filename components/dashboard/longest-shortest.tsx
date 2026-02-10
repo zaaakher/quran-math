@@ -18,7 +18,7 @@ interface LongestShortestProps {
 
 export function LongestShortest({ longest, shortest }: LongestShortestProps) {
   const t = useTranslations("dashboard");
-  
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Card>
@@ -43,7 +43,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
                   <TableCell>{s.englishName}</TableCell>
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
-                    <Badge variant={s.revelationType === "Meccan" ? "default" : "secondary"}>
+                    <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
                       {s.revelationType}
                     </Badge>
                   </TableCell>
@@ -75,7 +75,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
                   <TableCell>{s.englishName}</TableCell>
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
-                    <Badge variant={s.revelationType === "Meccan" ? "default" : "secondary"}>
+                    <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
                       {s.revelationType}
                     </Badge>
                   </TableCell>
