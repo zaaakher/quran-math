@@ -287,7 +287,8 @@ export function getLinguisticStats(surahsWithAyahs?: any[]) {
     totalWords: 0,
     totalLetters: 0,
     uniqueWords: 0,
-    averageWordLength: 0
+    averageWordLength: 0,
+    typeTokenRatio: 0
   };
   
   const wordMap = new Map<string, number>();
@@ -319,7 +320,11 @@ export function getLinguisticStats(surahsWithAyahs?: any[]) {
 
 /** Analyze numeric patterns in verse numbers */
 export function getNumericPatterns(surahsWithAyahs?: any[]) {
-  if (!surahsWithAyahs) return [];
+  if (!surahsWithAyahs) return {
+    perfectSquareVersesCount: 0,
+    primeVersesCount: 0,
+    fibonacciVersesCount: 0
+  };
   
   const patterns = {
     perfectSquares: [] as number[],

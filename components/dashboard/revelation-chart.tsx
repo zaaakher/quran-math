@@ -4,8 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
@@ -39,9 +37,8 @@ export function RevelationChart({ data }: RevelationChartProps) {
               cy="50%"
               innerRadius={60}
               strokeWidth={2}
-              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
+              label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(1)}%`}
             />
-            <ChartLegend content={<ChartLegendContent nameKey="name" />} />
           </PieChart>
         </ChartContainer>
       </CardContent>
