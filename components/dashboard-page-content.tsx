@@ -141,15 +141,6 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
 
 
 
-  if (error) {
-    return <ErrorDisplay messageKey="failed_load" namespace="common" />;
-  }
-
-  // If no data is available yet, don't render anything (should be handled by wrapper)
-  if (!data) {
-    return null;
-  }
-
   const {
     meta,
     revelationStats,

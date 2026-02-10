@@ -5,6 +5,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { Locale, localeDirections } from "@/i18n/config";
 import { useLocaleContext } from "@/lib/locale-context";
 import { LoadingScreen } from "@/components/loading-screen";
+import { useQuranStore } from "@/lib/store";
+import { fetchAndStoreQuranData } from "@/lib/quran-api";
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -28,13 +30,27 @@ async function loadLocaleMessages(locale: Locale): Promise<Record<string, any>> 
 function LocaleWrapper({ children }: { children: React.ReactNode }) {
   const { locale, direction } = useLocaleContext();
   const [messages, setMessages] = useState<Record<string, any>>({});
+  const { surahs, setIsLoading } = useQuranStore();
 
   useEffect(() => {
     loadLocaleMessages(locale).then(setMessages);
   }, [locale]);
 
-  // Only render when we have messages loaded
-  if (!messages || Object.keys(messages).length === 0) {
+  useEffect(() => {
+    // Fetch Quran data if not already loaded
+    if (surahs.length === 0) {
+      setIsLoading(true);
+      fetchAndStoreQuranData()
+        .then(() => setIsLoading(false))
+        .catch((error) => {
+          console.error("Error fetching Quran data:", error);
+          setIsLoading(false);
+        });
+    }
+  }, [surahs.length, setIsLoading]);
+
+  // Only render when we have messages AND Quran data loaded
+  if (!messages || Object.keys(messages).length === 0 || surahs.length === 0) {
     return <LoadingScreen />;
   }
 
