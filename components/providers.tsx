@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { Locale, localeDirections } from "@/i18n/config";
 import { useLocaleContext } from "@/lib/locale-context";
+import { LoadingScreen } from "@/components/loading-screen";
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -34,7 +35,7 @@ function LocaleWrapper({ children }: { children: React.ReactNode }) {
 
   // Only render when we have messages loaded
   if (!messages || Object.keys(messages).length === 0) {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   return (
@@ -52,7 +53,7 @@ export function Providers({
   initialMessages 
 }: ProvidersProps) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingScreen />}>
       <NextIntlClientProvider locale={initialLocale} messages={initialMessages}>
         <LocaleWrapper>
           {children}
