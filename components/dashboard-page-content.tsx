@@ -57,86 +57,85 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    if (surahs.length > 0 && ayahs.length > 0 && juzs.length > 0) {
-      try {
-        // Get meta data from surahs
-        const meta = {
-          ayahs: { count: ayahs.length },
-          surahs: { count: surahs.length, references: surahs },
-          sajdas: { count: 0, references: [] },
-          rukus: { count: 0, references: [] }
-        };
+    async function processData() {
+      if (surahs.length > 0 && ayahs.length > 0 && juzs.length > 0) {
+        try {
+          // Fetch meta data including sajdas and rukus
+          const metaRes = await fetchMeta();
+          const meta = metaRes?.data;
 
-        // Build surahs with ayahs structure for analysis functions
-        const surahsWithAyahs = surahs.map(surah => ({
-          ...surah,
-          ayahs: ayahs.filter(ayah => {
-            // Calculate which surah this ayah belongs to based on cumulative ayah counts
-            const startAyah = surahs.slice(0, surah.number - 1).reduce((sum, s) => sum + s.numberOfAyahs, 1);
-            const endAyah = startAyah + surah.numberOfAyahs - 1;
-            return ayah.number >= startAyah && ayah.number <= endAyah;
-          })
-        }));
+          // Build surahs with ayahs structure for analysis functions
+          const surahsWithAyahs = surahs.map(surah => ({
+            ...surah,
+            ayahs: ayahs.filter(ayah => {
+              // Calculate which surah this ayah belongs to based on cumulative ayah counts
+              const startAyah = surahs.slice(0, surah.number - 1).reduce((sum, s) => sum + s.numberOfAyahs, 1);
+              const endAyah = startAyah + surah.numberOfAyahs - 1;
+              return ayah.number >= startAyah && ayah.number <= endAyah;
+            })
+          }));
 
-        const revelationStats = getRevelationStats(surahs);
-        const revelationChartData = getRevelationChartData(surahs);
-        const versesPerSurahData = getVersesPerSurahChartData(surahs, locale);
-        const juzData = getJuzDistributionFromApi(juzs);
-        const longest = getLongestSurahs(surahs, 10);
-        const shortest = getShortestSurahs(surahs, 10);
-        const ayahStats = getAyahCountStats(surahs);
+          const revelationStats = getRevelationStats(surahs);
+          const revelationChartData = getRevelationChartData(surahs);
+          const versesPerSurahData = getVersesPerSurahChartData(surahs, locale);
+          const juzData = getJuzDistributionFromApi(juzs);
+          const longest = getLongestSurahs(surahs, 10);
+          const shortest = getShortestSurahs(surahs, 10);
+          const ayahStats = getAyahCountStats(surahs);
 
-        const sajdas = meta?.sajdas?.references ?? [];
-        const sajdaStats = getSajdaStats(sajdas);
-        const surahNames = new Map(surahs.map((s) => [s.number, locale === "en" ? s.englishName : s.name]));
+          const sajdas = meta?.sajdas?.references ?? [];
+          const sajdaStats = getSajdaStats(sajdas);
+          const surahNames = new Map(surahs.map((s) => [s.number, locale === "en" ? s.englishName : s.name]));
 
-        // New advanced analysis - now passing proper surahsWithAyahs structure
-        const letterFreq = getLetterFrequency(surahs, surahsWithAyahs);
-        const wordLengthDist = getWordLengthDistribution(surahsWithAyahs);
-        const rukuDist = getRukuDistribution(surahsWithAyahs);
-        const pageDist = getPageDistribution(surahsWithAyahs);
-        const ayahLengthStats = getAyahLengthStats(surahsWithAyahs);
-        const topSurahsByWords = getTopSurahsByWordCount(surahsWithAyahs, 15, locale);
-        const revelationOrder = getRevelationOrder(surahs, locale);
-        const avgVersesPerPage = getAverageVersesPerPage(surahsWithAyahs);
-        const linguisticStats = getLinguisticStats(surahsWithAyahs);
-        const numericPatterns = getNumericPatterns(surahsWithAyahs);
-        const surahCharacteristics = getSurahCharacteristics(surahs, locale);
-        const wordStats = {
-          totalWords: linguisticStats.totalWords,
-          totalLetters: linguisticStats.totalLetters
-        };
+          // New advanced analysis - now passing proper surahsWithAyahs structure
+          const letterFreq = getLetterFrequency(surahs, surahsWithAyahs);
+          const wordLengthDist = getWordLengthDistribution(surahsWithAyahs);
+          const rukuDist = getRukuDistribution(surahsWithAyahs);
+          const pageDist = getPageDistribution(surahsWithAyahs);
+          const ayahLengthStats = getAyahLengthStats(surahsWithAyahs);
+          const topSurahsByWords = getTopSurahsByWordCount(surahsWithAyahs, 15, locale);
+          const revelationOrder = getRevelationOrder(surahs, locale);
+          const avgVersesPerPage = getAverageVersesPerPage(surahsWithAyahs);
+          const linguisticStats = getLinguisticStats(surahsWithAyahs);
+          const numericPatterns = getNumericPatterns(surahsWithAyahs);
+          const surahCharacteristics = getSurahCharacteristics(surahs, locale);
+          const wordStats = {
+            totalWords: linguisticStats.totalWords,
+            totalLetters: linguisticStats.totalLetters
+          };
 
-        setData({
-          surahs,
-          meta,
-          revelationStats,
-          revelationChartData,
-          versesPerSurahData,
-          juzData,
-          longest,
-          shortest,
-          ayahStats,
-          sajdas,
-          sajdaStats,
-          surahNames,
-          letterFreq,
-          wordLengthDist,
-          rukuDist,
-          pageDist,
-          ayahLengthStats,
-          topSurahsByWords,
-          revelationOrder,
-          avgVersesPerPage,
-          linguisticStats,
-          numericPatterns,
-          surahCharacteristics,
-          wordStats,
-        });
-      } catch (err) {
-        console.error("Error processing dashboard data:", err);
+          setData({
+            surahs,
+            meta,
+            revelationStats,
+            revelationChartData,
+            versesPerSurahData,
+            juzData,
+            longest,
+            shortest,
+            ayahStats,
+            sajdas,
+            sajdaStats,
+            surahNames,
+            letterFreq,
+            wordLengthDist,
+            rukuDist,
+            pageDist,
+            ayahLengthStats,
+            topSurahsByWords,
+            revelationOrder,
+            avgVersesPerPage,
+            linguisticStats,
+            numericPatterns,
+            surahCharacteristics,
+            wordStats,
+          });
+        } catch (err) {
+          console.error("Error processing dashboard data:", err);
+        }
       }
     }
+    processData();
   }, [surahs, ayahs, juzs, locale]);
 
 
