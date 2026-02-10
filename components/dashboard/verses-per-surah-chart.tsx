@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -8,6 +7,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { ChartWrapper } from "./chart-wrapper";
 
 const chartConfig = {
   verses: { label: "Verses", color: "var(--chart-1)" },
@@ -20,26 +20,23 @@ interface VersesPerSurahChartProps {
 
 export function VersesPerSurahChart({ data }: VersesPerSurahChartProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Verses per Surah</CardTitle>
-        <CardDescription>Number of ayahs in each chapter (all 114 surahs)</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[400px] w-full">
-          <BarChart data={data} margin={{ left: 0, right: 12 }}>
-            <XAxis
-              dataKey="number"
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(v) => `S${v}`}
-            />
-            <YAxis dataKey="verses" tickLine={false} axisLine={false} />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar dataKey="verses" radius={[4, 4, 0, 0]} fill="var(--chart-1)" />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <ChartWrapper
+      title="Verses per Surah"
+      description="Number of ayahs in each chapter (all 114 surahs)"
+    >
+      <ChartContainer config={chartConfig} className="h-[400px] w-full">
+        <BarChart data={data} margin={{ left: 0, right: 12 }}>
+          <XAxis
+            dataKey="number"
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={(v) => `S${v}`}
+          />
+          <YAxis dataKey="verses" tickLine={false} axisLine={false} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="verses" radius={[4, 4, 0, 0]} fill="var(--chart-1)" />
+        </BarChart>
+      </ChartContainer>
+    </ChartWrapper>
   );
 }

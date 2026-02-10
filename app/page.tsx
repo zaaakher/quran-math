@@ -90,7 +90,7 @@ export default async function DashboardPage() {
   const surahCharacteristics = getSurahCharacteristics(surahs);
 
   return (
-    <div className="container py-8 space-y-8 px-4">
+    <div className="py-8 space-y-8 px-4">
       <section id="overview">
         <h2 className="text-xl font-semibold mb-4">Overview</h2>
         <OverviewCards

@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -8,6 +7,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Pie, PieChart } from "recharts";
+import { ChartWrapper } from "./chart-wrapper";
 
 const chartConfig = {
   meccan: { label: "Meccan", color: "var(--chart-1)" },
@@ -20,28 +20,25 @@ interface RevelationChartProps {
 
 export function RevelationChart({ data }: RevelationChartProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Revelation Type (Ayahs)</CardTitle>
-        <CardDescription>Meccan vs Medinan verses</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square h-[280px]">
-          <PieChart>
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Pie
-              data={data}
-              dataKey="ayahs"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              strokeWidth={2}
-              label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(1)}%`}
-            />
-          </PieChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <ChartWrapper
+      title="Revelation Type (Ayahs)"
+      description="Meccan vs Medinan verses"
+    >
+      <ChartContainer config={chartConfig} className="mx-auto aspect-square h-[280px]">
+        <PieChart>
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Pie
+            data={data}
+            dataKey="ayahs"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            innerRadius={60}
+            strokeWidth={2}
+            label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(1)}%`}
+          />
+        </PieChart>
+      </ChartContainer>
+    </ChartWrapper>
   );
 }
