@@ -1,0 +1,14 @@
+{
+  "layout": {
+    "title": "تحليل القرآن",
+    "subtitle": "البيانات من https://api.alquran.cloud/v1"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "switch": "تبديل اللغة"
+  },
+  "common": {
+    "github": "GitHub"
+  }
+}
