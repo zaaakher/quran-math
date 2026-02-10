@@ -1,6 +1,3 @@
-"use client";
-
-import { useTranslations } from "next-intl";
 import { Separator } from "@/components/ui/separator";
 import { ReactNode } from "react";
 
@@ -15,13 +12,15 @@ export function DashboardSection({
   children,
   showSeparator = true 
 }: DashboardSectionProps) {
-  const t = useTranslations("dashboard");
+  // For server components, we'll use the key directly as a fallback
+  // The actual translation will be handled by the parent component
+  const title = titleKey;
 
   return (
     <>
       {showSeparator && <Separator />}
       <section>
-        <h2 className="text-xl font-semibold mb-4">{t(titleKey)}</h2>
+        <h2 className="text-xl font-semibold mb-4">{title}</h2>
         {children}
       </section>
     </>

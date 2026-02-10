@@ -81,7 +81,8 @@ export async function fetchFullQuran(
   import("@/types/quran").ApiResponse<{ surahs: import("@/types/quran").SurahWithAyahs[] }>
 > {
   const res = await fetch(`${BASE}/quran/${edition}`, {
-    next: { revalidate: 86400 },
+    // Don't cache large responses to avoid memory issues
+    cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch full Quran");
   return res.json();
