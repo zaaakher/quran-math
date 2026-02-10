@@ -14,13 +14,21 @@ import {
   Zap,
   Layout,
   Sparkles,
+  Send,
+  LifeBuoy,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 
@@ -110,7 +118,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
     ],
+    navSecondary: [
+      // {
+      //   title: "Support",
+      //   url: "#",
+      //   icon: LifeBuoy,
+      // },
+      {
+        title: "Feedback",
+        url: "https://github.com/zaaakher/quran-math/issues/new",
+        icon: Send,
+      },
+    ],
   }
+
+
 
   return (
     <Sidebar
@@ -120,8 +142,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     >
       <SidebarContent>
         <NavMain items={data.navMain} />
+
       </SidebarContent>
       <SidebarRail />
+      <SidebarFooter>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {data.navSecondary.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild size="sm">
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarFooter>
     </Sidebar>
   )
 }

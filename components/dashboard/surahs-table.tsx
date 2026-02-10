@@ -19,27 +19,27 @@ interface SurahsTableProps {
 }
 
 export function SurahsTable({ surahs }: SurahsTableProps) {
-  const t = useTranslations("dashboard");
+  const t = useTranslations();
   const locale = useLocale(); // Ensure locale is available for translations
   let runningTotal = 0;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("all_surahs")}</CardTitle>
-        <CardDescription>{t("name_verse_count_revelation_type")}</CardDescription>
+    <Card dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+      <CardHeader className="text-start" >
+        <CardTitle>{t("dashboard.all_surahs")}</CardTitle>
+        <CardDescription>{t("dashboard.name_verse_count_revelation_type")}</CardDescription>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[400px] w-full rounded-md border">
-          <Table>
+          <Table dir={locale === 'ar' ? 'rtl' : 'ltr'} className="w-full">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-14">#</TableHead>
-                <TableHead>{t("english_name")}</TableHead>
-                <TableHead>{t("translation")}</TableHead>
-                <TableHead className="text-right">{t("ayahs")}</TableHead>
-                <TableHead>{t("type")}</TableHead>
-                <TableHead className="text-right">{t("cumulative")}</TableHead>
+                <TableHead>{t("dashboard.surah")}</TableHead>
+                {/* <TableHead>{t("dashboard.translation")}</TableHead> */}
+                <TableHead className="text-right">{t("dashboard.ayahs")}</TableHead>
+                <TableHead>{t("dashboard.type")}</TableHead>
+                <TableHead className="text-right">{t("dashboard.cumulative")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -53,7 +53,7 @@ export function SurahsTable({ surahs }: SurahsTableProps) {
                     <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                     <TableCell>
                       <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
-                        {s.revelationType}
+                        {t(`cards.${s.revelationType.toLowerCase()}`)}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">{runningTotal}</TableCell>
@@ -65,6 +65,6 @@ export function SurahsTable({ surahs }: SurahsTableProps) {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </CardContent>
-    </Card>
+    </Card >
   );
 }

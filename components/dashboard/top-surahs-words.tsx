@@ -18,7 +18,7 @@ export function TopSurahsByWords({ data }: TopSurahsByWordsProps) {
   const t = useTranslations("dashboard");
   
   return (
-    <Card>
+    <Card className="max-h-96 overflow-y-auto">
       <CardHeader>
         <CardTitle>{t("top_surahs_by_word_count")}</CardTitle>
         <CardDescription>{t("surahs_with_most_words")}</CardDescription>
@@ -37,7 +37,7 @@ export function TopSurahsByWords({ data }: TopSurahsByWordsProps) {
               {data.map((surah) => (
                 <TableRow key={surah.surahNumber}>
                   <TableCell>
-                    <div>
+                    <div className="flex flex-row items-center gap-1">
                       <p className="font-medium">{surah.surahName}</p>
                       <Badge variant="outline" className="text-xs mt-1">#{surah.surahNumber}</Badge>
                     </div>

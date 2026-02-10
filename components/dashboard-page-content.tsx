@@ -47,12 +47,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { DashboardSection } from "@/components/dashboard-section";
 import { ErrorDisplay } from "@/components/error-display";
+import { useTranslations } from "next-intl";
 
 interface DashboardPageContentProps {
   locale: string;
 }
 
 export function DashboardPageContent({ locale }: DashboardPageContentProps) {
+  const t = useTranslations('dashboard');
+
   const { surahs, ayahs, juzs, isLoading, error } = useQuranStore();
   const [data, setData] = useState<any>(null);
 
@@ -184,11 +187,12 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
             medinanAyahs={revelationStats.medinanAyahs}
             meccanSurahs={revelationStats.meccanSurahs}
             medinanSurahs={revelationStats.medinanSurahs}
+            avgVersesPerPage={avgVersesPerPage}
           />
         </DashboardSection>
       </section>
 
-      <DashboardSection titleKey="revelation">
+      <DashboardSection titleKey="revelation" id="revelation">
         <div className="grid gap-4 lg:grid-cols-2">
           <RevelationChart data={revelationChartData} />
           <div className="space-y-4">
@@ -207,14 +211,14 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         <RevelationOrder data={revelationOrder} />
       </DashboardSection>
 
-      <DashboardSection titleKey="surahs">
+      <DashboardSection titleKey="surahs" id="surahs">
         <div className="grid gap-4">
           <SurahCharacteristics data={surahCharacteristics} />
           <LongestShortest longest={longest} shortest={shortest} />
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey="verses">
+      <DashboardSection titleKey="verses" id="verses">
         <div className="grid gap-4 lg:grid-cols-2">
           <AyahStats stats={ayahLengthStats} />
           <TopSurahsByWords data={topSurahsByWords} />
@@ -231,31 +235,22 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey="numeric">
-        <div className="grid gap-4 lg:grid-cols-2">
+      <DashboardSection titleKey="numeric" id="numeric">
+        <div className="grid gap-4 lg:grid-cols-1">
           <NumericPatterns patterns={numericPatterns} />
-          <div className="space-y-4">
-            <div className="border rounded-lg p-4 bg-card">
-              <p className="text-sm text-muted-foreground">average_verses_per_page</p>
-              <p className="text-3xl font-bold mt-2">{avgVersesPerPage}</p>
-            </div>
-            <div className="border rounded-lg p-4 bg-card">
-              <p className="text-sm text-muted-foreground">unique_sanskrit_words</p>
-              <p className="text-3xl font-bold mt-2">{linguisticStats.uniqueWords.toLocaleString()}</p>
-            </div>
-          </div>
+
         </div>
       </DashboardSection>
 
-      <DashboardSection titleKey="juz">
+      <DashboardSection titleKey="juz" id="juz">
         <JuzChart data={juzData} />
       </DashboardSection>
 
-      <DashboardSection titleKey="ruku">
+      <DashboardSection titleKey="ruku" id="ruku">
         <RukuAnalysis data={rukuDist} />
       </DashboardSection>
 
-      <DashboardSection titleKey="pages">
+      <DashboardSection titleKey="pages" id="pages">
         <PageDistribution data={pageDist} />
       </DashboardSection>
 
@@ -263,11 +258,11 @@ export function DashboardPageContent({ locale }: DashboardPageContentProps) {
         <VersesPerSurahChart data={versesPerSurahData} />
       </DashboardSection>
 
-      <DashboardSection titleKey="sajda">
+      <DashboardSection titleKey="sajda" id="sajda">
         <Tabs defaultValue="surahs">
           <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="surahs">all_surahs</TabsTrigger>
-            <TabsTrigger value="sajda">sajda_verses</TabsTrigger>
+            <TabsTrigger value="surahs">{t("all_surahs")}</TabsTrigger>
+            <TabsTrigger value="sajda">{t("sajda_verses")}</TabsTrigger>
           </TabsList>
           <TabsContent value="surahs" className="mt-4">
             <SurahsTable surahs={surahs} />

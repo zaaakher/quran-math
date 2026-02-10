@@ -14,6 +14,7 @@ interface OverviewCardsProps {
   medinanAyahs: number;
   meccanSurahs: number;
   medinanSurahs: number;
+  avgVersesPerPage: number;
 }
 
 export function OverviewCards({
@@ -26,6 +27,7 @@ export function OverviewCards({
   medinanAyahs,
   meccanSurahs,
   medinanSurahs,
+  avgVersesPerPage
 }: OverviewCardsProps) {
   const t = useTranslations("cards");
 
@@ -72,6 +74,13 @@ export function OverviewCards({
       desc: t("medinan_desc"),
       icon: Moon,
     },
+    {
+
+      title: t("avg_surahs_per_page"),
+      value: avgVersesPerPage.toFixed(2),
+      desc: t("avg_surahs_per_page_desc"),
+      icon: FileText,
+    }
   ];
 
   return (

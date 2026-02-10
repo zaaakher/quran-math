@@ -47,7 +47,6 @@
     "avg_verses_per_page": "Average Verses Per Page",
     "average_verses_per_page": "Average Verses Per Page",
     "unique_words": "Unique Words",
-    "unique_sanskrit_words": "Unique Sanskrit Words",
     "verse_length_analysis": "Verse Length Analysis",
     "character_count_distribution": "Character Count Distribution in Verses",
     "average_length": "Average Length",
@@ -124,6 +123,8 @@
     "loading": "Loading..."
   },
   "cards": {
+    "avg_surahs_per_page": "Average Verses Per Page",
+    "avg_surahs_per_page_desc": "Average number of verses on each page of the Quran (Standard 604-page edition)",
     "total_verses": "Total Verses (Āyāt)",
     "total_verses_desc": "Ayahs in the entire Quran",
     "surahs": "Surahs",

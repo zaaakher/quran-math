@@ -20,7 +20,7 @@ interface LongestShortestProps {
 }
 
 export function LongestShortest({ longest, shortest }: LongestShortestProps) {
-  const t = useTranslations("dashboard");
+  const t = useTranslations();
   const { locale } = useLocaleContext();
   const isArabic = locale === "ar";
 
@@ -28,17 +28,17 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
     <div className="grid gap-4 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>{t("longest_surahs")}</CardTitle>
-          <CardDescription>{t("top_10")}</CardDescription>
+          <CardTitle>{t("dashboard.longest_surahs")}</CardTitle>
+          <CardDescription>{t("dashboard.top_10")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead>{t("name")}</TableHead>
-                <TableHead className="text-right">{t("ayahs")}</TableHead>
-                <TableHead>{t("type")}</TableHead>
+                <TableHead>{t("dashboard.name")}</TableHead>
+                <TableHead className="text-right">{t("dashboard.ayahs")}</TableHead>
+                <TableHead>{t("dashboard.type")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -49,7 +49,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
                     <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
-                      {s.revelationType}
+                      {t(`cards.${s.revelationType.toLowerCase()}`)}
                     </Badge>
                   </TableCell>
                 </TableRow>
@@ -60,17 +60,17 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>{t("shortest_surahs")}</CardTitle>
-          <CardDescription>{t("top_10")}</CardDescription>
+          <CardTitle>{t("dashboard.shortest_surahs")}</CardTitle>
+          <CardDescription>{t("dashboard.top_10")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>#</TableHead>
-                <TableHead>{t("name")}</TableHead>
-                <TableHead className="text-right">{t("ayahs")}</TableHead>
-                <TableHead>{t("type")}</TableHead>
+                <TableHead>{t("dashboard.name")}</TableHead>
+                <TableHead className="text-right">{t("dashboard.ayahs")}</TableHead>
+                <TableHead>{t("dashboard.type")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -81,7 +81,7 @@ export function LongestShortest({ longest, shortest }: LongestShortestProps) {
                   <TableCell className="text-right">{s.numberOfAyahs}</TableCell>
                   <TableCell>
                     <Badge variant={s.revelationType.toLowerCase() === "meccan" ? "default" : "secondary"}>
-                      {s.revelationType}
+                      {t(`cards.${s.revelationType.toLowerCase()}`)}
                     </Badge>
                   </TableCell>
                 </TableRow>
