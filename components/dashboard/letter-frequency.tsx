@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { ChartWrapper } from "./chart-wrapper";
 
@@ -16,10 +17,11 @@ const colors = [
 ];
 
 export function LetterFrequency({ data }: LetterFrequencyProps) {
+  const t = useTranslations("charts");
   return (
     <ChartWrapper
-      title="Letter Frequency Analysis"
-      description="Most common Arabic letters in the Quran"
+      title={t("letter_frequency")}
+      description={t("letter_frequency_desc")}
     >
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Layers, Moon, Sun, CircleDot, BookMarked, FileText } from "lucide-react";
 
@@ -24,47 +27,49 @@ export function OverviewCards({
   meccanSurahs,
   medinanSurahs,
 }: OverviewCardsProps) {
+  const t = useTranslations("cards");
+
   const cards = [
     {
-      title: "Total Verses (Āyāt)",
+      title: t("total_verses"),
       value: totalAyahs.toLocaleString(),
-      desc: "Ayahs in the entire Quran",
+      desc: t("total_verses_desc"),
       icon: BookOpen,
     },
     {
-      title: "Surahs",
+      title: t("surahs"),
       value: totalSurahs.toString(),
-      desc: "Chapters",
+      desc: t("surahs_desc"),
       icon: Layers,
     },
     {
-      title: "Pages",
+      title: t("pages"),
       value: totalPages.toString(),
-      desc: "Traditional printed pages (Mushaf)",
+      desc: t("pages_desc"),
       icon: FileText,
     },
     {
-      title: "Rukus",
+      title: t("rukus"),
       value: totalRukus.toString(),
-      desc: "Section divisions",
+      desc: t("rukus_desc"),
       icon: BookMarked,
     },
     {
-      title: "Sajda Verses",
+      title: t("sajda_verses"),
       value: totalSajdas.toString(),
-      desc: "Prostration verses",
+      desc: t("sajda_verses_desc"),
       icon: CircleDot,
     },
     {
-      title: "Meccan",
+      title: t("meccan"),
       value: `${meccanSurahs} surahs · ${meccanAyahs.toLocaleString()} ayahs`,
-      desc: "Revealed in Makkah",
+      desc: t("meccan_desc"),
       icon: Sun,
     },
     {
-      title: "Medinan",
+      title: t("medinan"),
       value: `${medinanSurahs} surahs · ${medinanAyahs.toLocaleString()} ayahs`,
-      desc: "Revealed in Madinah",
+      desc: t("medinan_desc"),
       icon: Moon,
     },
   ];

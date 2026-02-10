@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   ChartConfig,
   ChartContainer,
@@ -19,10 +20,11 @@ interface RevelationChartProps {
 }
 
 export function RevelationChart({ data }: RevelationChartProps) {
+  const t = useTranslations("charts");
   return (
     <ChartWrapper
-      title="Revelation Type (Ayahs)"
-      description="Meccan vs Medinan verses"
+      title={t("revelation_type_ayahs")}
+      description={t("revelation_type_desc")}
     >
       <ChartContainer config={chartConfig} className="mx-auto aspect-square h-[280px]">
         <PieChart>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   ChartConfig,
   ChartContainer,
@@ -19,10 +20,11 @@ interface JuzChartProps {
 }
 
 export function JuzChart({ data }: JuzChartProps) {
+  const t = useTranslations("charts");
   return (
     <ChartWrapper
-      title="Ayahs per Juz"
-      description="30 Juz (parts) — traditional division for recitation"
+      title={t("ayahs_per_juz")}
+      description={t("ayahs_per_juz_desc")}
     >
       <ChartContainer config={chartConfig} className="h-[300px] w-full">
         <BarChart data={data} margin={{ left: 0, right: 12 }}>

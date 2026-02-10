@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { ChartWrapper } from "./chart-wrapper";
 
@@ -8,10 +9,11 @@ interface WordLengthProps {
 }
 
 export function WordLengthDistribution({ data }: WordLengthProps) {
+  const t = useTranslations("charts");
   return (
     <ChartWrapper
-      title="Word Length Distribution"
-      description="Distribution of Arabic word lengths in the Quran"
+      title={t("word_length")}
+      description={t("word_length_desc")}
     >
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>

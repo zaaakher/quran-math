@@ -1,0 +1,83 @@
+{
+  "layout": {
+    "title": "تحليل القرآن",
+    "subtitle": "البيانات من https://api.alquran.cloud/v1"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "switch": "تبديل اللغة"
+  },
+  "common": {
+    "github": "GitHub",
+    "failed_load": "فشل تحميل بيانات القرآن."
+  },
+  "sidebar": {
+    "main": "الرئيسية",
+    "analysis": "التحليل",
+    "linguistic": "اللغويات",
+    "advanced": "متقدم",
+    "overview": "نظرة عامة",
+    "surahs": "السور",
+    "revelation": "الوحي",
+    "verses": "الآيات",
+    "juz_distribution": "توزيع الأجزاء",
+    "sajda_verses": "آيات السجدة",
+    "ruku_analysis": "تحليل الركوع",
+    "page_distribution": "توزيع الصفحات",
+    "word_letter": "الكلمات والحروف",
+    "revelation_order": "ترتيب الوحي",
+    "numeric_patterns": "الأنماط الرقمية",
+    "verses_per_surah": "الآيات لكل سورة"
+  },
+  "dashboard": {
+    "overview": "نظرة عامة",
+    "revelation": "تحليل الوحي والهيكل",
+    "revelation_order": "ترتيب الوحي",
+    "surahs": "تحليل السور",
+    "verses": "تحليل الآيات",
+    "word_analysis": "التحليل اللغوي",
+    "numeric": "الأنماط الرقمية والتحليلات المتقدمة",
+    "juz": "توزيع الأجزاء",
+    "ruku": "تحليل الركوع",
+    "pages": "توزيع الصفحات",
+    "verses_per_surah": "الآيات لكل سورة",
+    "sajda": "تحليل السجدة",
+    "all_surahs": "جميع السور",
+    "sajda_verses": "آيات السجدة",
+    "avg_verses_per_page": "متوسط الآيات لكل صفحة",
+    "unique_words": "الكلمات الفريدة"
+  },
+  "cards": {
+    "total_verses": "إجمالي الآيات (الآيات)",
+    "total_verses_desc": "الآيات في القرآن الكريم كاملاً",
+    "surahs": "السور",
+    "surahs_desc": "الفصول",
+    "pages": "الصفحات",
+    "pages_desc": "صفحات الطباعة التقليدية (المصحف)",
+    "rukus": "الركوعات",
+    "rukus_desc": "تقسيمات القسم",
+    "sajda_verses": "آيات السجدة",
+    "sajda_verses_desc": "آيات السجود",
+    "meccan": "مكي",
+    "meccan_desc": "نزل في مكة",
+    "medinan": "مديني",
+    "medinan_desc": "نزل في المدينة"
+  },
+  "charts": {
+    "revelation_type_ayahs": "نوع الوحي (الآيات)",
+    "revelation_type_desc": "الآيات المكية مقابل المدنية",
+    "ayahs_per_juz": "الآيات لكل جزء",
+    "ayahs_per_juz_desc": "30 جزء — التقسيم التقليدي للتلاوة",
+    "verses_per_surah": "الآيات لكل سورة",
+    "verses_per_surah_desc": "عدد الآيات في كل فصل (114 سورة)",
+    "letter_frequency": "تحليل تكرار الحروف",
+    "letter_frequency_desc": "الحروف العربية الأكثر شيوعاً في القرآن",
+    "word_length": "توزيع طول الكلمات",
+    "word_length_desc": "توزيع أطوال الكلمات العربية في القرآن",
+    "page_distribution": "توزيع الصفحات",
+    "page_distribution_desc": "الآيات لكل صفحة قرآنية (النسخة المطبوعة 604 صفحات)",
+    "ruku_distribution": "توزيع الركوعات",
+    "ruku_distribution_desc": "الآيات لكل ركوعة (أقسام التلاوة) في القرآن"
+  }
+}

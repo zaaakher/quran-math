@@ -1,0 +1,83 @@
+{
+  "layout": {
+    "title": "Quran Analysis",
+    "subtitle": "Data from https://api.alquran.cloud/v1"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "switch": "Switch Language"
+  },
+  "common": {
+    "github": "GitHub",
+    "failed_load": "Failed to load Quran data."
+  },
+  "sidebar": {
+    "main": "Main",
+    "analysis": "Analysis",
+    "linguistic": "Linguistic",
+    "advanced": "Advanced",
+    "overview": "Overview",
+    "surahs": "Surahs",
+    "revelation": "Revelation",
+    "verses": "Verses",
+    "juz_distribution": "Juz Distribution",
+    "sajda_verses": "Sajda Verses",
+    "ruku_analysis": "Ruku Analysis",
+    "page_distribution": "Page Distribution",
+    "word_letter": "Word & Letter",
+    "revelation_order": "Revelation Order",
+    "numeric_patterns": "Numeric Patterns",
+    "verses_per_surah": "Verses Per Surah"
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "revelation": "Revelation & Structure Analysis",
+    "revelation_order": "Revelation Order",
+    "surahs": "Surah Analysis",
+    "verses": "Verse (Ayah) Analysis",
+    "word_analysis": "Linguistic Analysis",
+    "numeric": "Numeric Patterns & Advanced Analytics",
+    "juz": "Juz Distribution",
+    "ruku": "Ruku Analysis",
+    "pages": "Page Distribution",
+    "verses_per_surah": "Verses Per Surah",
+    "sajda": "Sajda Analysis",
+    "all_surahs": "All Surahs",
+    "sajda_verses": "Sajda Verses",
+    "avg_verses_per_page": "Average Verses Per Page",
+    "unique_words": "Unique Words"
+  },
+  "cards": {
+    "total_verses": "Total Verses (Āyāt)",
+    "total_verses_desc": "Ayahs in the entire Quran",
+    "surahs": "Surahs",
+    "surahs_desc": "Chapters",
+    "pages": "Pages",
+    "pages_desc": "Traditional printed pages (Mushaf)",
+    "rukus": "Rukus",
+    "rukus_desc": "Section divisions",
+    "sajda_verses": "Sajda Verses",
+    "sajda_verses_desc": "Prostration verses",
+    "meccan": "Meccan",
+    "meccan_desc": "Revealed in Makkah",
+    "medinan": "Medinan",
+    "medinan_desc": "Revealed in Madinah"
+  },
+  "charts": {
+    "revelation_type_ayahs": "Revelation Type (Ayahs)",
+    "revelation_type_desc": "Meccan vs Medinan verses",
+    "ayahs_per_juz": "Ayahs per Juz",
+    "ayahs_per_juz_desc": "30 Juz (parts) — traditional division for recitation",
+    "verses_per_surah": "Verses per Surah",
+    "verses_per_surah_desc": "Number of ayahs in each chapter (all 114 surahs)",
+    "letter_frequency": "Letter Frequency Analysis",
+    "letter_frequency_desc": "Most common Arabic letters in the Quran",
+    "word_length": "Word Length Distribution",
+    "word_length_desc": "Distribution of Arabic word lengths in the Quran",
+    "page_distribution": "Page Distribution",
+    "page_distribution_desc": "Verses per Quran page (Standard 604-page edition)",
+    "ruku_distribution": "Ruku Distribution",
+    "ruku_distribution_desc": "Verses per Ruku (reading sections) in the Quran"
+  }
+}

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTranslations } from "next-intl"
 import {
   BarChart3,
   Book,
@@ -23,92 +24,94 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-const data = {
-  navMain: [
-    {
-      title: "Main",
-      items: [
-        {
-          title: "Overview",
-          url: "#overview",
-          icon: Layout,
-        },
-        {
-          title: "Surahs",
-          url: "#surahs",
-          icon: Book,
-        },
-      ],
-    },
-    {
-      title: "Analysis",
-      items: [
-        {
-          title: "Revelation",
-          url: "#revelation",
-          icon: Calendar,
-        },
-        {
-          title: "Verses",
-          url: "#verses",
-          icon: FileText,
-        },
-        {
-          title: "Juz Distribution",
-          url: "#juz",
-          icon: Hash,
-        },
-        {
-          title: "Sajda Verses",
-          url: "#sajda",
-          icon: Eye,
-        },
-        {
-          title: "Ruku Analysis",
-          url: "#ruku",
-          icon: PieChart,
-        },
-        {
-          title: "Page Distribution",
-          url: "#pages",
-          icon: BarChart3,
-        },
-      ],
-    },
-    {
-      title: "Linguistic",
-      items: [
-        {
-          title: "Word & Letter",
-          url: "#word-analysis",
-          icon: Search,
-        },
-      ],
-    },
-    {
-      title: "Advanced",
-      items: [
-        {
-          title: "Revelation Order",
-          url: "#revelation-order",
-          icon: Sparkles,
-        },
-        {
-          title: "Numeric Patterns",
-          url: "#numeric",
-          icon: Zap,
-        },
-        {
-          title: "Verses Per Surah",
-          url: "#verses-per-surah",
-          icon: BarChart3,
-        },
-      ],
-    },
-  ],
-}
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const t = useTranslations("sidebar")
+
+  const data = {
+    navMain: [
+      {
+        title: t("main"),
+        items: [
+          {
+            title: t("overview"),
+            url: "#overview",
+            icon: Layout,
+          },
+          {
+            title: t("surahs"),
+            url: "#surahs",
+            icon: Book,
+          },
+        ],
+      },
+      {
+        title: t("analysis"),
+        items: [
+          {
+            title: t("revelation"),
+            url: "#revelation",
+            icon: Calendar,
+          },
+          {
+            title: t("verses"),
+            url: "#verses",
+            icon: FileText,
+          },
+          {
+            title: t("juz_distribution"),
+            url: "#juz",
+            icon: Hash,
+          },
+          {
+            title: t("sajda_verses"),
+            url: "#sajda",
+            icon: Eye,
+          },
+          {
+            title: t("ruku_analysis"),
+            url: "#ruku",
+            icon: PieChart,
+          },
+          {
+            title: t("page_distribution"),
+            url: "#pages",
+            icon: BarChart3,
+          },
+        ],
+      },
+      {
+        title: t("linguistic"),
+        items: [
+          {
+            title: t("word_letter"),
+            url: "#word-analysis",
+            icon: Search,
+          },
+        ],
+      },
+      {
+        title: t("advanced"),
+        items: [
+          {
+            title: t("revelation_order"),
+            url: "#revelation-order",
+            icon: Sparkles,
+          },
+          {
+            title: t("numeric_patterns"),
+            url: "#numeric",
+            icon: Zap,
+          },
+          {
+            title: t("verses_per_surah"),
+            url: "#verses-per-surah",
+            icon: BarChart3,
+          },
+        ],
+      },
+    ],
+  }
+
   return (
     <Sidebar
       collapsible="icon"
