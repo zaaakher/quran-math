@@ -22,7 +22,7 @@ export default async function LocaleLayout({
 }: LocaleLayoutProps) {
   const { locale: rawLocale } = await params;
   const locale = rawLocale as Locale;
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
