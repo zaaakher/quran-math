@@ -117,23 +117,27 @@ export async function fetchSajda(
 
 /** Fetches all Quran data and stores it in the zustand store */
 export async function fetchAndStoreQuranData() {
-  const { setLoading, setData, setError } = useQuranStore.getState()
+  const { setLoading, setData, setError, setProgress } = useQuranStore.getState()
   
   try {
     setLoading(true)
+    setProgress(10)
     
-    // Fetch all data in parallel where possible
-    const [surahListRes, juzs] = await Promise.all([
-      fetchSurahList(),
-      fetchAllJuz()
-    ])
+    // Fetch surah list (10%)
+    const surahListRes = await fetchSurahList()
+    setProgress(25)
     
     if (!surahListRes?.data) {
       throw new Error("Failed to fetch surah list")
     }
     
-    // Fetch full Quran data
+    // Fetch all juz (25-60%)
+    const juzs = await fetchAllJuz()
+    setProgress(60)
+    
+    // Fetch full Quran data (60-90%)
     const fullQuranRes = await fetchFullQuran()
+    setProgress(90)
     
     if (!fullQuranRes?.data?.surahs) {
       throw new Error("Failed to fetch full Quran data")
@@ -146,9 +150,11 @@ export async function fetchAndStoreQuranData() {
     })
     
     setData(surahListRes.data, ayahs, juzs)
+    setProgress(100)
     
   } catch (error) {
     console.error("Error fetching Quran data:", error)
     setError(error instanceof Error ? error.message : "Failed to fetch Quran data")
+    setProgress(0)
   }
 }

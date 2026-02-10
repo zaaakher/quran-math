@@ -5,11 +5,7 @@ import { Loader2 } from "lucide-react";
 import { useQuranStore } from "@/lib/store";
 
 export function LoadingScreen() {
-  const { isLoading } = useQuranStore();
-
-  // Estimate progress based on loading state
-  // The Quran fetch has multiple steps, so we can show incremental progress
-  const progress = isLoading ? 75 : 100;
+  const { isLoading, progress } = useQuranStore();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center">
