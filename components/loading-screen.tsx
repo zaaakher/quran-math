@@ -34,16 +34,12 @@ export function LoadingScreen() {
         {/* Progress bar */}
         <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
           <Progress value={progress} />
-
-
         </div>
 
         {/* Progress text */}
         <p className="text-xs text-gray-400">
           {getLoadingMessage()}
         </p>
-
-
 
       </div>
     </div>

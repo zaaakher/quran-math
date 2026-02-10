@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useRef } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { Locale, localeDirections } from "@/i18n/config";
 import { useLocaleContext } from "@/lib/locale-context";
@@ -30,27 +30,41 @@ async function loadLocaleMessages(locale: Locale): Promise<Record<string, any>> 
 function LocaleWrapper({ children }: { children: React.ReactNode }) {
   const { locale, direction } = useLocaleContext();
   const [messages, setMessages] = useState<Record<string, any>>({});
-  const { surahs, progress, setIsLoading } = useQuranStore();
+  const surahs = useQuranStore((state) => state.surahs);
+  const progress = useQuranStore((state) => state.progress);
+  const [isReady, setIsReady] = useState(false);
+  const fetchAttempted = useRef(false);
 
   useEffect(() => {
     loadLocaleMessages(locale).then(setMessages);
   }, [locale]);
 
   useEffect(() => {
-    // Fetch Quran data if not already loaded
-    if (surahs.length === 0) {
-      setIsLoading(true);
-      fetchAndStoreQuranData()
-        .then(() => setIsLoading(false))
-        .catch((error) => {
-          console.error("Error fetching Quran data:", error);
-          setIsLoading(false);
-        });
+    // Only fetch if we haven't already and we don't have data
+    const state = useQuranStore.getState();
+    if (state.surahs.length === 0 && !fetchAttempted.current) {
+      fetchAttempted.current = true;
+      fetchAndStoreQuranData().catch(() => {
+        fetchAttempted.current = false; // Allow retry on error
+      });
     }
-  }, [surahs.length, setIsLoading]);
+  }, []);
 
-  // Only render when we have messages, Quran data loaded, AND loading is complete
-  if (!messages || Object.keys(messages).length === 0 || surahs.length === 0 || progress < 100) {
+  // Watch for progress to reach exactly 100
+  useEffect(() => {
+    if (surahs.length > 0 && progress === 100) {
+      // Give a small delay to ensure all data is properly set
+      const timer = setTimeout(() => {
+        setIsReady(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [surahs.length, progress]);
+
+  // Only render when progress is exactly 100 (not 99, not 100.0001)
+  const shouldShowLoading = progress < 100 || surahs.length === 0 || !messages || Object.keys(messages).length === 0;
+
+  if (shouldShowLoading || !isReady) {
     return <LoadingScreen />;
   }
 
