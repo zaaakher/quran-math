@@ -5,7 +5,6 @@ import { Providers } from "@/components/providers";
 import { getMessages } from "next-intl/server";
 import { Locale, localeDirections } from "@/i18n/config";
 import { Geist, Geist_Mono } from "next/font/google";
-import { DirectionProvider } from "@/components/ui/direction";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
