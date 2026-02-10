@@ -15,7 +15,7 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
   const direction = localeDirections[locale];
 
   return (
-    <IntlProvider locale={locale} messages={messages}>
+    <IntlProvider locale={locale} messages={messages} timeZone="UTC">
       <DirectionProvider dir={direction} direction={direction}>
         {children}
       </DirectionProvider>

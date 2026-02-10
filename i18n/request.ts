@@ -15,5 +15,8 @@ export default getRequestConfig(async ({ locale: rawLocale }) => {
     messages: (
       await import(`../messages/${locale}.json`)
     ).default,
+    // Set a default time zone to avoid ENVIRONMENT_FALLBACK warning
+    // This ensures consistent date/time formatting across server and client
+    timeZone: 'UTC'
   };
 });
