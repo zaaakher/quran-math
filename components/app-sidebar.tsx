@@ -110,8 +110,14 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
+      {...props}
+    >
+
+      {/*  <Sidebar collapsible="icon" {...props}> */}
+      {/* <SidebarHeader>
         <div className="flex items-center gap-2 px-2">
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
             <Book className="size-4" />
@@ -121,7 +127,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <span className="truncate text-xs">Analysis</span>
           </div>
         </div>
-      </SidebarHeader>
+      </SidebarHeader> */}
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>

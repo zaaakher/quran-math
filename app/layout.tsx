@@ -4,6 +4,8 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import "./globals.css";
 
+import { SiteHeader } from "@/components/site-header";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,19 +31,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-              <SidebarTrigger className="-ml-1" />
-              <h1 className="text-2xl font-bold">Quran Analysis Dashboard</h1>
-            </header>
-            <div className="flex-1 overflow-auto">
-              {children}
+        <div className="[--header-height:calc(--spacing(14))]">
+          <SidebarProvider className="flex flex-col">
+            <SiteHeader />
+            <div className="flex flex-1">
+              <AppSidebar />
+              <SidebarInset>
+                <div className="flex flex-1 flex-col gap-4 p-4">
+                  {children}
+
+                </div>
+              </SidebarInset>
             </div>
-          </SidebarInset>
-        </SidebarProvider>
+          </SidebarProvider>
+        </div>
       </body>
     </html>
-  );
+  )
+
 }
