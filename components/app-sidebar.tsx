@@ -67,9 +67,9 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex items-center gap-2 px-2">
-          <Book className="h-6 w-6" />
-          <div className="flex flex-col">
+        <div className="flex items-center justify-center gap-2 px-2 group-data-[collapsible=icon]:justify-center">
+          <Book className="h-6 w-6 flex-shrink-0 group-data-[collapsible=icon]:hidden" />
+          <div className="flex flex-col group-data-[collapsible=icon]:hidden">
             <span className="text-sm font-semibold">Quran</span>
             <span className="text-xs text-muted-foreground">Analysis</span>
           </div>
