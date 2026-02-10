@@ -32,7 +32,7 @@ export function SiteHeader() {
                     </Button>
                     {/* <Separator orientation="vertical" className="mr- h-4" /> */}
                     <div className="flex flex-col">
-                        <h1 className="font-semibold">Quran Analysis Dashboard</h1>
+                        <h1 className="font-semibold">Quran Analysis</h1>
                         <p className="text-xs text-muted-foreground">Data from https://api.alquran.cloud/v1</p>
                     </div>
                 </div>

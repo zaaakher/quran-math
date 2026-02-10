@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Quran Analysis Dashboard",
+  title: "Quran Analysis",
   description: "Comprehensive data and analysis of the Holy Quran — verses, surahs, revelation type, Juz, Sajda, and more.",
 };
 
