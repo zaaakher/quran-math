@@ -1,7 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useLocaleContext } from "@/lib/locale-context";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,12 +12,11 @@ import { Globe } from "lucide-react";
 import { Locale, localeLabels } from "@/i18n/config";
 
 export function LanguageSwitcher() {
-  const locale = useLocale() as Locale;
-  const router = useRouter();
+  const { locale, setLocale } = useLocaleContext();
 
   const handleLanguageChange = (newLocale: Locale) => {
     if (newLocale !== locale) {
-      router.push(`/${newLocale}`);
+      setLocale(newLocale);
     }
   };
 

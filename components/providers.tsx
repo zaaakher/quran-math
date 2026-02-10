@@ -1,21 +1,63 @@
 "use client";
 
-import React from "react";
-import { IntlProvider } from "next-intl";
+import React, { Suspense, useEffect, useState } from "react";
+import { NextIntlClientProvider } from "next-intl";
 import { Locale, localeDirections } from "@/i18n/config";
+import { useLocaleContext } from "@/lib/locale-context";
 
 interface ProvidersProps {
   children: React.ReactNode;
-  locale: Locale;
-  messages: Record<string, any>;
+  initialLocale: Locale;
+  initialMessages: Record<string, any>;
 }
 
-export function Providers({ children, locale, messages }: ProvidersProps) {
-  const direction = localeDirections[locale];
+// Lazy load the locale messages
+async function loadLocaleMessages(locale: Locale): Promise<Record<string, any>> {
+  try {
+    const messages = await import(`../messages/${locale}.json`);
+    return messages.default || messages;
+  } catch (error) {
+    console.warn(`Failed to load messages for locale ${locale}:`, error);
+    // Fallback to English
+    const enMessages = await import(`../messages/en.json`);
+    return enMessages.default || enMessages;
+  }
+}
+
+function LocaleWrapper({ children }: { children: React.ReactNode }) {
+  const { locale, direction } = useLocaleContext();
+  const [messages, setMessages] = useState<Record<string, any>>({});
+
+  useEffect(() => {
+    loadLocaleMessages(locale).then(setMessages);
+  }, [locale]);
+
+  // Only render when we have messages loaded
+  if (!messages || Object.keys(messages).length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <IntlProvider locale={locale} messages={messages} timeZone="UTC">
-      {children}
-    </IntlProvider>
+    <div dir={direction}>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        {children}
+      </NextIntlClientProvider>
+    </div>
+  );
+}
+
+export function Providers({ 
+  children, 
+  initialLocale, 
+  initialMessages 
+}: ProvidersProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NextIntlClientProvider locale={initialLocale} messages={initialMessages}>
+        <LocaleWrapper>
+          {children}
+        </LocaleWrapper>
+      </NextIntlClientProvider>
+    </Suspense>
   );
 }

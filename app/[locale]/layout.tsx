@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers";
 import { getMessages } from "next-intl/server";
 import { Locale, localeDirections } from "@/i18n/config";
 import { Geist, Geist_Mono } from "next/font/google";
+import { LocaleProvider } from "@/lib/locale-context";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -32,26 +33,26 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   const { locale: rawLocale } = await params;
-  const locale = rawLocale as Locale;
-  const messages = await getMessages({ locale });
-  const direction = localeDirections[locale];
+  const initialLocale = rawLocale as Locale;
+  const initialMessages = await getMessages({ locale: initialLocale });
 
-  console.log('direction', direction);
   return (
-    <Providers locale={locale} messages={messages}>
-      <div dir={direction} className="[--header-height:calc(--spacing(14))]">
-        <SidebarProvider className="flex flex-col">
-          <SiteHeader />
-          <div className="flex flex-1">
-            <AppSidebar />
-            <SidebarInset>
-              <div className="flex flex-1 flex-col gap-4">
-                {children}
-              </div>
-            </SidebarInset>
-          </div>
-        </SidebarProvider>
-      </div>
-    </Providers>
+    <LocaleProvider>
+      <Providers initialLocale={initialLocale} initialMessages={initialMessages}>
+        <div className="[--header-height:calc(--spacing(14))]">
+          <SidebarProvider className="flex flex-col">
+            <SiteHeader />
+            <div className="flex flex-1">
+              <AppSidebar />
+              <SidebarInset>
+                <div className="flex flex-1 flex-col gap-4">
+                  {children}
+                </div>
+              </SidebarInset>
+            </div>
+          </SidebarProvider>
+        </div>
+      </Providers>
+    </LocaleProvider>
   );
 }
