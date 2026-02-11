@@ -1,8 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quran Math
+
+A Next.js application for analyzing and visualizing mathematical patterns in the Holy Quran. This project provides statistical insights, linguistic analysis, and various visualizations of Quranic data.
+
+## Features
+
+- 📊 **Comprehensive Statistics**: View detailed statistics about surahs, ayahs, letters, and words
+- 🔤 **Letter Frequency Analysis**: Analyze the frequency and distribution of Arabic letters
+- 📈 **Visual Charts**: Interactive charts showing revelation patterns, page distribution, and more
+- 🌐 **Bilingual Support**: Available in English and Arabic (العربية)
+- 📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
+
+## Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org) with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Charts**: Recharts
+- **Internationalization**: next-intl
+- **UI Components**: Custom components with shadcn/ui inspiration
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -16,22 +47,46 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+quran-math/
+├── app/
+│   ├── [locale]/          # Localization routes
+│   ├── dashboard/         # Dashboard components
+│   └── page.tsx           # Main page
+├── components/
+│   ├── dashboard/         # Dashboard widgets and charts
+│   └── ui/                # Reusable UI components
+├── lib/
+│   ├── analysis.ts        # Quran analysis logic
+│   ├── quran-api.ts       # Quran data API
+│   └── utils.ts           # Utility functions
+├── hooks/                 # Custom React hooks
+├── messages/              # i18n messages (en.json, ar.json)
+└── types/                 # TypeScript type definitions
+```
 
-## Learn More
+## Available Dashboards
 
-To learn more about Next.js, take a look at the following resources:
+- **Overview Cards**: Key statistics at a glance
+- **Surah Characteristics**: Details about each surah
+- **Letter Frequency**: Distribution of Arabic letters
+- **Linguistic Stats**: Word and character analysis
+- **Revelation Charts**: Patterns in revelation order
+- **Page Distribution**: Visualizing Quranic pages
+- **Word Statistics**: Analysis of word usage
+- And many more...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is open source and available under the MIT License.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# quran-math
+## Acknowledgments
+
+- [Quran API](https://quran-api.developer(placeholder)) for providing Quranic data
+- All contributors and supporters of this project

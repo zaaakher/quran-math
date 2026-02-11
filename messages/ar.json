@@ -28,7 +28,8 @@
     "word_letter": "الكلمات والحروف",
     "revelation_order": "ترتيب الوحي",
     "numeric_patterns": "الأنماط الرقمية",
-    "verses_per_surah": "الآيات لكل سورة"
+    "verses_per_surah": "الآيات لكل سورة",
+    "feedback": "إرسال ملاحظات"
   },
   "dashboard": {
     "overview": "نظرة عامة",

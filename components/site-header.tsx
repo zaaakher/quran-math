@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator"
 import { useSidebar } from "@/components/ui/sidebar"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import Link from "next/link"
+import { SikkaDropdown } from "./sikka-dropdown"
 
 export function SiteHeader() {
     const { toggleSidebar } = useSidebar()
@@ -39,6 +40,7 @@ export function SiteHeader() {
                     </div>
                 </div>
                 <div className="flex gap-2">
+                    <SikkaDropdown />
                     <LanguageSwitcher />
                     <Link href="https://github.com/zaaakher/quran-math" target="_blank" rel="noopener noreferrer">
                         <Button

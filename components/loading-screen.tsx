@@ -27,7 +27,7 @@ export function LoadingScreen() {
             Loading Quran Analysis
           </h1>
           <p className="text-gray-600 text-sm">
-            Preparing your linguistic and mathematical insights...
+            Preparing linguistic and mathematical insights...
           </p>
         </div>
 

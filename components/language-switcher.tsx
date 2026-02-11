@@ -32,7 +32,7 @@ export function LanguageSwitcher() {
           <Globe className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align={locale === "ar" ? "start" : "end"}>
         <DropdownMenuItem
           onClick={() => handleLanguageChange("en")}
           className={locale === "en" ? "bg-accent" : ""}

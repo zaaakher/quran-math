@@ -28,7 +28,8 @@
     "word_letter": "Word & Letter",
     "revelation_order": "Revelation Order",
     "numeric_patterns": "Numeric Patterns",
-    "verses_per_surah": "Verses Per Surah"
+    "verses_per_surah": "Verses Per Surah",
+    "feedback": "Send Feedback"
   },
   "dashboard": {
     "overview": "Overview",
